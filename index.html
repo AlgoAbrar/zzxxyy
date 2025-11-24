@@ -680,6 +680,270 @@
           transform: rotate(360deg);
         }
       }
+
+      /* ========== NEW: Mobile/Tablet Testimonial Styles ========== */
+      .testimonial-section-mobile {
+        position: relative;
+        padding: 20px 0;
+      }
+      
+      .testimonial-slider-mobile {
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .testimonial-track-mobile {
+        display: flex;
+        transition: transform 0.5s ease;
+        gap: 16px;
+      }
+      
+      .testimonial-item-mobile {
+        flex: 0 0 100%;
+        padding: 20px;
+        background: linear-gradient(180deg, #0c0c0c, #111213);
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.03);
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+      
+      @media (min-width: 640px) and (max-width: 1023px) {
+        .testimonial-item-mobile {
+          flex: 0 0 calc(50% - 8px);
+        }
+      }
+      
+      .testimonial-text-mobile {
+        font-family: 'Rubik', sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        color: var(--gs-3);
+        margin-bottom: 16px;
+        text-align: left;
+      }
+      
+      .testimonial-author-mobile {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 16px;
+      }
+      
+      .testimonial-avatar-mobile {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--brand);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: #111;
+      }
+      
+      .testimonial-name-mobile {
+        font-weight: 500;
+        color: var(--gs-5);
+        font-size: 14px;
+      }
+      
+      .testimonial-dots-mobile {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 20px;
+      }
+      
+      .testimonial-dot-mobile {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      
+      .testimonial-dot-mobile.active {
+        background: var(--brand);
+        transform: scale(1.2);
+      }
+      
+      /* ========== NEW: Mobile/Tablet Footer Styles ========== */
+      .footer-container-mobile {
+        background: linear-gradient(180deg, #0b0b0c, #0f1112);
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 40px 0 20px;
+        margin-top: 60px;
+      }
+      
+      .footer-content-mobile {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      
+      @media (min-width: 640px) and (max-width: 1023px) {
+        .footer-content-mobile {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      
+      .footer-brand-mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      
+      .footer-logo-mobile {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      
+      .footer-logo-icon-mobile {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        background: linear-gradient(135deg, var(--brand), var(--brand-light));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .footer-logo-text-mobile {
+        font-family: 'Syne', sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+      }
+      
+      .footer-description-mobile {
+        color: var(--gs-5);
+        line-height: 1.6;
+        max-width: 400px;
+      }
+      
+      .footer-links-mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      
+      .footer-links-mobile h3 {
+        font-family: 'Syne', sans-serif;
+        font-size: 18px;
+        margin-bottom: 8px;
+        color: white;
+      }
+      
+      .footer-links-mobile a {
+        color: var(--gs-5);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      
+      .footer-links-mobile a:hover {
+        color: var(--brand);
+      }
+      
+      .footer-contact-mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      
+      .footer-contact-mobile h3 {
+        font-family: 'Syne', sans-serif;
+        font-size: 18px;
+        margin-bottom: 8px;
+        color: white;
+      }
+      
+      .contact-item-mobile {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--gs-5);
+      }
+      
+      .contact-icon-mobile {
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .footer-bottom-mobile {
+        max-width: 1200px;
+        margin: 40px auto 0;
+        padding: 20px 20px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+        color: var(--gs-6);
+      }
+      
+      @media (min-width: 640px) and (max-width: 1023px) {
+        .footer-bottom-mobile {
+          flex-direction: row;
+          justify-content: space-between;
+          text-align: left;
+        }
+      }
+      
+      .social-links-mobile {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+      }
+      
+      @media (min-width: 640px) and (max-width: 1023px) {
+        .social-links-mobile {
+          justify-content: flex-end;
+        }
+      }
+      
+      .social-link-mobile {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.05);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+      }
+      
+      .social-link-mobile:hover {
+        background: var(--brand);
+        transform: translateY(-2px);
+      }
+      
+      /* ========== HIDE/SHOW CLASSES ========== */
+      .desktop-only {
+        display: block;
+      }
+      
+      .mobile-only {
+        display: none;
+      }
+      
+      @media (max-width: 1023px) {
+        .desktop-only {
+          display: none;
+        }
+        
+        .mobile-only {
+          display: block;
+        }
+      }
     </style>
   </head>
   <body class="antialiased">
@@ -722,30 +986,30 @@
     <!-- ======== Main Content ======== -->
     <main
       id="main-content"
-      class="max-w-[1200px] mx-auto px-6 py-8 opacity-0 translate-y-4"
+      class="max-w-[1200px] mx-auto px-4 sm:px-6 py-6 sm:py-8 opacity-0 translate-y-4"
     >
       <!-- NAV -->
       <nav
-        class="flex items-center justify-between py-6"
+        class="flex items-center justify-between py-4 sm:py-6"
         aria-label="Main navigation"
       >
         <div class="flex items-center gap-3">
           <div class="flex items-center gap-3 glass p-2 rounded-lg">
             <div
-              class="w-10 h-10 rounded-sm bg-[linear-gradient(180deg,#ff9b6a,#f57c31)] flex items-center justify-center font-syne text-sm"
+              class="w-8 h-8 sm:w-10 sm:h-10 rounded-sm bg-[linear-gradient(180deg,#ff9b6a,#f57c31)] flex items-center justify-center font-syne text-sm"
             >
               <img
                 src="images/algoinjectlogo.png"
                 alt="Algo Inject Logo"
-                style="width: 24px; height: 24px; object-fit: contain"
+                class="w-4 h-4 sm:w-6 sm:h-6 object-contain"
               />
             </div>
-            <div class="text-lg font-syne tracking-wide">ALGO INJECT</div>
+            <div class="text-base sm:text-lg font-syne tracking-wide">ALGO INJECT</div>
           </div>
         </div>
 
         <div
-          class="hidden md:flex items-center gap-6 font-rubik text-[15px] muted"
+          class="hidden md:flex items-center gap-4 lg:gap-6 font-rubik text-sm sm:text-[15px] muted"
         >
           <a href="projects.html" class="hover:text-white transition">Projects</a>
           <a href="index.html#services" class="hover:text-white transition">Services</a>
@@ -754,7 +1018,7 @@
             >Experience</a
           >
           <button
-            class="px-4 py-2 rounded-full border border-[#2b2b2b] hover:border-[var(--brand)]"
+            class="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border border-[#2b2b2b] hover:border-[var(--brand)]"
           > <a href="contact.html">
             Contact</a>
           </button>
@@ -773,16 +1037,16 @@
 
       <!-- HERO -->
       <header
-        class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center pt-6 section"
+        class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-center pt-4 md:pt-6 section"
         id="hero"
       >
-        <div>
-          <h1 class="font-syne h1-syne hero-title leading-tight">
+        <div class="order-2 md:order-1">
+          <h1 class="font-syne h1-syne hero-title leading-tight text-center md:text-left">
             HI, WE ARE ALGO INJECT,<br /><span class="hero-sub"
               >BASED IN BANGLADESH</span
             >
           </h1>
-          <p class="mt-6 font-rubik body-md muted max-w-lg">
+          <p class="mt-4 md:mt-6 font-rubik body-md muted max-w-lg mx-auto md:mx-0 text-center md:text-left">
             Algo Inject is where innovative ideas meet their technical
             execution. As a solo developer, I am passionate about injecting
             smart algorithms and clean code into the heart of your project. I
@@ -791,32 +1055,32 @@
             build the intelligent digital solution your vision deserves.
           </p>
 
-          <div class="mt-8 flex flex-wrap items-center gap-4">
+          <div class="mt-6 md:mt-8 flex flex-wrap items-center justify-center md:justify-start gap-3 md:gap-4">
             <a
               href="#projects"
-              class="inline-flex items-center gap-3 px-5 py-3 rounded-full font-rubik hover:shadow-lg transition-all"
+              class="inline-flex items-center gap-3 px-4 py-2.5 sm:px-5 sm:py-3 rounded-full font-rubik hover:shadow-lg transition-all"
               style="background: var(--brand); color: #111"
               >Explore Works →</a
             >
           </div>
         </div>
 
-        <aside class="glass p-6 rounded-2xl flex items-center gap-6">
+        <aside class="glass p-4 sm:p-6 rounded-2xl flex flex-col sm:flex-row items-center gap-4 sm:gap-6 order-1 md:order-2">
           <img
             src="images/saiyedulabrarlarge.png"
             alt="Abrar"
-            class="portrait"
+            class="portrait w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-40 lg:h-40"
           />
-          <div>
-            <h3 class="font-syne h4-rubik">LET'S GET KNOW ABOUT ME CLOSER</h3>
-            <p class="mt-3 muted body-md">
+          <div class="text-center sm:text-left">
+            <h3 class="font-syne h4-rubik text-lg sm:text-xl md:text-2xl">LET'S GET KNOW ABOUT ME CLOSER</h3>
+            <p class="mt-2 sm:mt-3 muted text-sm sm:body-md">
               Abrar is a Bangladesh-based CS student specializing in AI and
               machine learning. His work spans web apps, full-stack systems and
               emerging AI solutions.
             </p>
-            <div class="mt-4">
+            <div class="mt-3 sm:mt-4 text-center sm:text-left">
               <a href="aboutme.html"
-                class="px-4 py-2 rounded-full hover:shadow-lg transition-all"
+                class="inline-block px-3 py-1.5 sm:px-4 sm:py-2 rounded-full hover:shadow-lg transition-all"
                 style="background: var(--brand); color: #111"
                 >About Me</a
               >
@@ -826,49 +1090,49 @@
       </header>
 
       <!-- PROJECTS -->
-      <section id="projects" class="mt-14 section">
-        <h2 class="font-syne h3-syne">MY PROJECTS</h2>
+      <section id="projects" class="mt-10 sm:mt-14 section">
+        <h2 class="font-syne h3-syne text-center md:text-left">MY PROJECTS</h2>
 
-        <div class="projects-grid mt-6" id="projects-grid">
+        <div class="projects-grid mt-4 sm:mt-6" id="projects-grid">
           <!-- Projects will be loaded here by JavaScript -->
         </div>
 
-        <div class="mt-6">
+        <div class="mt-4 sm:mt-6 text-center md:text-left">
           <a
             href="projects.html"
-            class="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-[#333] font-rubik hover:border-[var(--brand)] transition"
+            class="inline-flex items-center gap-3 px-4 py-2 sm:px-5 sm:py-2 rounded-full border border-[#333] font-rubik hover:border-[var(--brand)] transition"
             >See More Projects →</a
           >
         </div>
       </section>
 
       <!-- SERVICES -->
-      <section id="services" class="mt-16 section">
-        <h3 class="font-syne h3-syne">SERVICES I OFFER</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-          <div class="service-card glass p-6 rounded-lg">
-            <h4 class="font-syne h4-rubik">Full-Stack Development</h4>
-            <p class="mt-2 muted">
+      <section id="services" class="mt-12 sm:mt-16 section">
+        <h3 class="font-syne h3-syne text-center md:text-left">SERVICES I OFFER</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mt-4 sm:mt-6">
+          <div class="service-card glass p-4 sm:p-6 rounded-lg">
+            <h4 class="font-syne h4-rubik text-lg sm:text-xl">Full-Stack Development</h4>
+            <p class="mt-2 muted text-sm sm:text-base">
               End-to-end web application development using modern technologies
               and best practices.
             </p>
           </div>
-          <div class="service-card glass p-6 rounded-lg">
-            <h4 class="font-syne h4-rubik">Tech Consultation</h4>
-            <p class="mt-2 muted">
+          <div class="service-card glass p-4 sm:p-6 rounded-lg">
+            <h4 class="font-syne h4-rubik text-lg sm:text-xl">Tech Consultation</h4>
+            <p class="mt-2 muted text-sm sm:text-base">
               Expert troubleshooting and hardware solutions
             </p>
           </div>
-          <div class="service-card glass p-6 rounded-lg">
-            <h4 class="font-syne h4-rubik">UI/UX Design</h4>
-            <p class="mt-2 muted">
+          <div class="service-card glass p-4 sm:p-6 rounded-lg">
+            <h4 class="font-syne h4-rubik text-lg sm:text-xl">UI/UX Design</h4>
+            <p class="mt-2 muted text-sm sm:text-base">
               User-centered design approach creating intuitive and engaging user
               experiences.
             </p>
           </div>
-          <div class="service-card glass p-6 rounded-lg">
-            <h4 class="font-syne h4-rubik">One-on-One Mentoring</h4>
-            <p class="mt-2 muted">
+          <div class="service-card glass p-4 sm:p-6 rounded-lg">
+            <h4 class="font-syne h4-rubik text-lg sm:text-xl">One-on-One Mentoring</h4>
+            <p class="mt-2 muted text-sm sm:text-base">
               I mentor newcomers in computer science, helping them build strong foundations and practical skills.
             </p>
           </div>
@@ -876,17 +1140,17 @@
       </section>
 
       <!-- BLOG SECTION -->
-      <section id="blog" class="mt-16 section">
-        <h3 class="font-syne h3-syne">LATEST ARTICLES</h3>
+      <section id="blog" class="mt-12 sm:mt-16 section">
+        <h3 class="font-syne h3-syne text-center md:text-left">LATEST ARTICLES</h3>
 
-        <div class="blog-grid mt-6" id="blog-grid">
+        <div class="blog-grid mt-4 sm:mt-6" id="blog-grid">
           <!-- Blog posts will be loaded here by JavaScript -->
         </div>
 
-        <div class="mt-8 text-center">
+        <div class="mt-6 sm:mt-8 text-center">
           <a
             href="blog.html"
-            class="inline-flex items-center gap-3 px-5 py-3 rounded-full font-rubik border border-[#333] hover:border-[var(--brand)] transition"
+            class="inline-flex items-center gap-3 px-4 py-2.5 sm:px-5 sm:py-3 rounded-full font-rubik border border-[#333] hover:border-[var(--brand)] transition"
           >
             View All Articles →
           </a>
@@ -894,27 +1158,27 @@
       </section>
 
       <!-- EXPERIENCE -->
-      <section id="experience" class="mt-16 section">
-        <h3 class="font-syne h3-syne">EXPERIENCE</h3>
+      <section id="experience" class="mt-12 sm:mt-16 section">
+        <h3 class="font-syne h3-syne text-center md:text-left">EXPERIENCE</h3>
         <div
-          class="glass p-6 rounded-lg mt-6 grid grid-cols-1 md:grid-cols-3 gap-4 muted"
+          class="glass p-4 sm:p-6 rounded-lg mt-4 sm:mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 muted text-sm sm:text-base"
         >
           <div>
             Software Developer
-            <div class="text-sm">Full-Stack Developer · Current</div>
+            <div class="text-xs sm:text-sm">Full-Stack Developer · Current</div>
           </div>
           <div>
             Taekwondo
-            <div class="text-sm">Assistant Junior Coach · 2019-2023</div>
+            <div class="text-xs sm:text-sm">Assistant Junior Coach · 2019-2023</div>
           </div>
         </div>
       </section>
 
-      <!-- TESTIMONIALS (slider) -->
-      <section id="testimonials" class="mt-16 section">
-        <h3 class="font-syne h3-syne">TESTIMONIAL</h3>
+      <!-- DESKTOP TESTIMONIALS (for PC/Laptop) -->
+      <section id="testimonials" class="mt-12 sm:mt-16 section desktop-only">
+        <h3 class="font-syne h3-syne text-center md:text-left">TESTIMONIAL</h3>
 
-        <div class="mt-6 relative">
+        <div class="mt-4 sm:mt-6 relative">
           <button
             class="slider-arrow left hidden md:grid"
             id="test-left"
@@ -935,7 +1199,7 @@
 
             <blockquote class="slider-item testimonial-card">
               <div>
-                “Outstanding service! My computer was crashing constantly, and they solved it in no time. Professional and reliable.”
+                "Outstanding service! My computer was crashing constantly, and they solved it in no time. Professional and reliable."
               </div>
               <cite>— Client</cite>
             </blockquote>
@@ -959,18 +1223,137 @@
         </div>
       </section>
 
-      <!-- CONTACT / FOOTER -->
-      <footer id="contact" class="mt-20 section">
-        <div class="glass p-8 rounded-lg text-center">
-          <p class="font-syne text-2xl">Get in Touch With Us</p>
+      <!-- MOBILE/TABLET TESTIMONIALS (for mobile/tablet) -->
+      <section id="testimonials-mobile" class="mt-12 sm:mt-16 section testimonial-section-mobile mobile-only">
+        <h3 class="font-syne h3-syne text-center md:text-left mb-6 sm:mb-8">TESTIMONIALS</h3>
+
+        <div class="testimonial-slider-mobile">
+          <div class="testimonial-track-mobile" id="testimonial-track-mobile">
+            <div class="testimonial-item-mobile">
+              <div class="testimonial-text-mobile">
+                "Algo Inject delivered exceptional work on our web application. The attention to detail and clean code made the project a success. Highly recommended for any development needs!"
+              </div>
+              <div class="testimonial-author-mobile">
+                
+                <div class="testimonial-name-mobile">Project Client</div>
+              </div>
+            </div>
+            
+            <div class="testimonial-item-mobile">
+              <div class="testimonial-text-mobile">
+                "Outstanding service! My computer was crashing constantly, and they solved it in no time. Professional, reliable, and very knowledgeable about hardware issues."
+              </div>
+              <div class="testimonial-author-mobile">
+                
+                <div class="testimonial-name-mobile">Client</div>
+              </div>
+            </div>
+            
+            <div class="testimonial-item-mobile">
+              <div class="testimonial-text-mobile">
+                "Working with Algo Inject was a great experience. The project was completed on time and exceeded expectations. Will definitely work with them again in the future."
+              </div>
+              <div class="testimonial-author-mobile">
+                
+                <div class="testimonial-name-mobile">University Professor</div>
+              </div>
+            </div>
+            
+            <div class="testimonial-item-mobile">
+              <div class="testimonial-text-mobile">
+                "Excellent mentoring sessions! They helped me understand complex programming concepts with clear explanations and practical examples. Highly recommended for beginners!"
+              </div>
+              <div class="testimonial-author-mobile">
+                
+                <div class="testimonial-name-mobile">Students</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="testimonial-dots-mobile" id="testimonial-dots-mobile">
+            <div class="testimonial-dot-mobile active" data-index="0"></div>
+            <div class="testimonial-dot-mobile" data-index="1"></div>
+            <div class="testimonial-dot-mobile" data-index="2"></div>
+            <div class="testimonial-dot-mobile" data-index="3"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DESKTOP FOOTER (for PC/Laptop) -->
+      <footer id="contact" class="mt-16 sm:mt-20 section desktop-only">
+        <div class="glass p-6 sm:p-8 rounded-lg text-center">
+          <p class="font-syne text-xl sm:text-2xl">Get in Touch With Us</p>
           <a
             href="mailto:saiyedulabrar.dev@gmail.com"
-            class="block font-syne text-3xl mt-4 hover:text-[var(--brand)] transition"
+            class="block font-syne text-2xl sm:text-3xl mt-3 sm:mt-4 hover:text-[var(--brand)] transition"
             >SAIYEDULABRAR.DEV@GMAIL.COM</a
           >
-          <p class="mt-6 muted">Algo Inject — Bangladesh · +880-171-9718686</p>
-          <div class="muted mt-4">
+          <p class="mt-4 sm:mt-6 muted text-sm sm:text-base">Algo Inject — Bangladesh · +880-171-9718686</p>
+          <div class="muted mt-3 sm:mt-4 text-sm sm:text-base">
             © 2025. Algo Inject. All rights reserved.
+          </div>
+        </div>
+      </footer>
+
+      <!-- MOBILE/TABLET FOOTER (for mobile/tablet) -->
+      <footer class="footer-container-mobile section mobile-only" id="contact-mobile">
+        <div class="footer-content-mobile">
+          <div class="footer-brand-mobile">
+            <div class="footer-logo-mobile">
+              <div class="footer-logo-icon-mobile">
+                <img src="images/algoinjectlogo.png" alt="Algo Inject Logo" class="w-6 h-6">
+              </div>
+              <div class="footer-logo-text-mobile">ALGO INJECT</div>
+            </div>
+            <p class="footer-description-mobile">
+              Algo Inject is where innovative ideas meet their technical execution. We specialize in crafting bespoke software, seamless user experiences, and scalable systems.
+            </p>
+          </div>
+          
+          <div class="footer-links-mobile">
+            <h3>Quick Links</h3>
+            <a href="#projects">Projects</a>
+            <a href="#services">Services</a>
+            <a href="#blog">Blog</a>
+            <a href="#experience">Experience</a>
+            <a href="#contact">Contact</a>
+          </div>
+          
+          <div class="footer-contact-mobile">
+            <h3>Contact Info</h3>
+            <div class="contact-item-mobile">
+              <div class="contact-icon-mobile">✉️</div>
+              <span>saiyedulabrar.dev@gmail.com</span>
+            </div>
+            <div class="contact-item-mobile">
+              <div class="contact-icon-mobile">📱</div>
+              <span>+880-171-9718686</span>
+            </div>
+            <div class="contact-item-mobile">
+              <div class="contact-icon-mobile">📍</div>
+              <span>Bangladesh</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="footer-bottom-mobile">
+          <div>© 2025. Algo Inject. All rights reserved.</div>
+          <div class="social-links-mobile">
+            <a href="#" class="social-link-mobile" aria-label="GitHub">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+            </a>
+            <a href="#" class="social-link-mobile" aria-label="LinkedIn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </a>
+            <a href="#" class="social-link-mobile" aria-label="Twitter">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+              </svg>
+            </a>
           </div>
         </div>
       </footer>
@@ -1142,19 +1525,19 @@
                 : '<div class="loading w-full h-full"></div>'
             }
           </div>
-          <div class="p-6">
+          <div class="p-4 sm:p-6">
             <div class="flex items-center justify-between">
               <div>
-                <div class="font-rubik font-semibold text-lg">${
+                <div class="font-rubik font-semibold text-base sm:text-lg">${
                   project.title
                 }</div>
-                <div class="text-sm muted mt-1">${project.category}</div>
+                <div class="text-xs sm:text-sm muted mt-1">${project.category}</div>
               </div>
               <a href="${
                 project.link
-              }" class="text-[18px] muted hover:text-[var(--brand)]">↗</a>
+              }" class="text-[16px] sm:text-[18px] muted hover:text-[var(--brand)]">↗</a>
             </div>
-            <p class="mt-3 text-sm muted">${project.description}</p>
+            <p class="mt-2 sm:mt-3 text-xs sm:text-sm muted">${project.description}</p>
             <div class="project-buttons">
               ${
                 project.github
@@ -1193,15 +1576,15 @@
                 : '<div class="loading w-full h-full"></div>'
             }
           </div>
-          <div class="blog-card-content">
-            <span class="blog-tag">${post.tag}</span>
-            <h3 class="font-syne text-xl">${post.title}</h3>
-            <p class="muted mt-3 flex-1">${post.excerpt}</p>
-            <div class="blog-card-meta">
+          <div class="blog-card-content p-4 sm:p-6">
+            <span class="blog-tag text-xs">${post.tag}</span>
+            <h3 class="font-syne text-lg sm:text-xl mt-2">${post.title}</h3>
+            <p class="muted mt-2 sm:mt-3 flex-1 text-sm sm:text-base">${post.excerpt}</p>
+            <div class="blog-card-meta text-xs sm:text-sm">
               <span>${post.date}</span>
               <span>${post.readTime}</span>
             </div>
-            <a href="${post.link}" class="blog-read-more">Read More →</a>
+            <a href="${post.link}" class="blog-read-more text-sm sm:text-base">Read More →</a>
           </div>
         `;
 
@@ -1211,23 +1594,14 @@
         // If no blog posts, show message
         if (featuredBlogPosts.length === 0) {
           blogGrid.innerHTML = `
-          <div class="col-span-3 text-center py-12">
-            <p class="muted">No blog posts available yet. Check back soon!</p>
+          <div class="col-span-3 text-center py-8 sm:py-12">
+            <p class="muted text-sm sm:text-base">No blog posts available yet. Check back soon!</p>
           </div>
         `;
         }
       }
 
-      // Initialize when DOM is loaded
-      document.addEventListener("DOMContentLoaded", function () {
-        loadFeaturedProjects();
-        loadFeaturedBlogPosts();
-
-        // Initialize section animations
-        window.dispatchEvent(new Event("scroll"));
-      });
-
-      // Testimonial slider functionality
+      // Desktop testimonial slider functionality
       document.addEventListener("DOMContentLoaded", function () {
         const testimonialSlider = document.getElementById("testimonial-slider");
         const testLeft = document.getElementById("test-left");
@@ -1242,6 +1616,91 @@
             testimonialSlider.scrollBy({ left: 300, behavior: "smooth" });
           });
         }
+      });
+
+      // Mobile/Tablet testimonial slider functionality
+      function initMobileTestimonialSlider() {
+        const track = document.getElementById('testimonial-track-mobile');
+        const dots = document.querySelectorAll('.testimonial-dot-mobile');
+        let currentIndex = 0;
+        
+        if (!track) return;
+        
+        // Calculate how many items to show based on screen size
+        function getItemsPerView() {
+          if (window.innerWidth >= 640) return 2;
+          return 1;
+        }
+        
+        function updateSlider() {
+          const itemsPerView = getItemsPerView();
+          const itemWidth = 100 / itemsPerView;
+          const translateX = -currentIndex * itemWidth;
+          track.style.transform = `translateX(${translateX}%)`;
+          
+          // Update dots
+          dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentIndex);
+          });
+        }
+        
+        // Dot click event
+        dots.forEach(dot => {
+          dot.addEventListener('click', () => {
+            currentIndex = parseInt(dot.getAttribute('data-index'));
+            updateSlider();
+          });
+        });
+        
+        // Auto slide
+        let autoSlide = setInterval(() => {
+          const itemsPerView = getItemsPerView();
+          const totalItems = track.children.length;
+          
+          if (currentIndex < totalItems - itemsPerView) {
+            currentIndex++;
+          } else {
+            currentIndex = 0;
+          }
+          
+          updateSlider();
+        }, 5000);
+        
+        // Pause auto slide on hover
+        track.addEventListener('mouseenter', () => {
+          clearInterval(autoSlide);
+        });
+        
+        track.addEventListener('mouseleave', () => {
+          autoSlide = setInterval(() => {
+            const itemsPerView = getItemsPerView();
+            const totalItems = track.children.length;
+            
+            if (currentIndex < totalItems - itemsPerView) {
+              currentIndex++;
+            } else {
+              currentIndex = 0;
+            }
+            
+            updateSlider();
+          }, 5000);
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', updateSlider);
+        
+        // Initialize
+        updateSlider();
+      }
+
+      // Initialize when DOM is loaded
+      document.addEventListener("DOMContentLoaded", function () {
+        loadFeaturedProjects();
+        loadFeaturedBlogPosts();
+        initMobileTestimonialSlider();
+
+        // Initialize section animations
+        window.dispatchEvent(new Event("scroll"));
       });
     </script>
   </body>
