@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Campus Resource Booking - Project Details | Algo Inject</title>
+    
+    <!-- Tailwind Browser build (v4.1) -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========== Brand tokens ========== */
+        :root{
+            --brand: #f57c31;
+            --brand-light: #ff9b6a;
+            --bg-900: #1A1A1A;
+            --bg-800: #262A2C;
+            --muted: #696969;
+            --white: #FFFFFF;
+
+            /* Greyscale */
+            --gs-1: #F9FAFB; --gs-2:#F4F4F6; --gs-3:#E5E6EB; --gs-4:#D3D5DA; --gs-5:#9EA3AE;
+            --gs-6:#6C727F; --gs-7:#4D5461; --gs-8:#394150; --gs-9:#212936; --gs-10:#161D21;
+        }
+
+        /* ========== Typography ========== */
+        .font-syne { font-family: 'Syne', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+        .font-rubik { font-family: 'Rubik', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+
+        /* Headline sizes */
+        .h1-syne { font-size: 72px; line-height: 0.98; }
+        .h2-syne { font-size: 64px; line-height: 1; }
+        .h3-syne { font-size: 56px; line-height: 1; }
+        .h4-rubik { font-size: 24px; }
+        .body-lg { font-size: 18px; }
+        .body-md { font-size: 16px; }
+
+        /* Responsive type scaling */
+        @media (max-width: 1024px) {
+            .h1-syne { font-size: 48px; }
+            .h2-syne { font-size: 40px; }
+            .h3-syne { font-size: 36px; }
+        }
+        @media (max-width: 640px) {
+            .h1-syne { font-size: 36px; }
+            .h2-syne { font-size: 32px; }
+            .h3-syne { font-size: 28px; }
+        }
+
+        /* ========== Page baseline ========== */
+        body { 
+            background: linear-gradient(180deg,#0b0b0c,#0f1112); 
+            color: var(--white); 
+            -webkit-font-smoothing:antialiased; 
+            -moz-osx-font-smoothing:grayscale; 
+            overflow-x: hidden;
+        }
+
+        /* ========== Glass cards & accents ========== */
+        .glass {
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            border: 1px solid rgba(255,255,255,0.03);
+            backdrop-filter: blur(6px);
+            border-radius: 14px;
+        }
+
+        /* ========== Navigation ========== */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(10px);
+            background: rgba(11, 11, 12, 0.8);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* ========== Project specific styles ========== */
+        .project-hero {
+            background: linear-gradient(135deg, rgba(245,124,49,0.1), rgba(255,155,106,0.05));
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .tech-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            font-size: 14px;
+            font-family: 'Rubik';
+            margin: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            background: rgba(245,124,49,0.2);
+            border-color: rgba(245,124,49,0.3);
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-family: 'Rubik';
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-right: 12px;
+            margin-bottom: 12px;
+        }
+
+        .github-link {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--white);
+        }
+
+        .github-link:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .demo-link {
+            background: var(--brand);
+            color: #111;
+        }
+
+        .demo-link:hover {
+            background: var(--brand-light);
+        }
+
+        .feature-list li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 12px;
+            font-family: 'Rubik';
+            color: var(--gs-3);
+        }
+
+        .feature-list li:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--brand);
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            margin: 40px 0;
+        }
+
+        .muted { color: var(--gs-5); }
+
+        /* Back button */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 2rem;
+            padding: 12px 24px;
+            background: rgba(245, 124, 49, 0.1);
+            color: var(--brand);
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-family: 'Rubik';
+        }
+
+        .back-btn:hover {
+            background: rgba(245, 124, 49, 0.2);
+            gap: 12px;
+        }
+
+        .design-process-card {
+            background: rgba(255,255,255,0.02);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .design-process-card:hover {
+            background: rgba(255,255,255,0.03);
+            border-color: rgba(245,124,49,0.2);
+        }
+
+        .process-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .process-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--brand);
+            color: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-family: 'Rubik';
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Navigation -->
+    <nav class="flex items-center justify-between py-6 px-6 max-w-[1200px] mx-auto">
+        <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3 glass p-2 rounded-lg">
+                <div class="w-10 h-10 rounded-sm bg-[linear-gradient(180deg,#ff9b6a,#f57c31)] flex items-center justify-center font-syne text-sm">
+                    <span style="color: #111; font-weight: bold">AI</span>
+                </div>
+                <div class="text-lg font-syne tracking-wide">ALGO INJECT</div>
+            </div>
+        </div>
+
+        <div class="hidden md:flex items-center gap-6 font-rubik text-[15px] muted">
+            <a href="../index.html#projects" class="hover:text-white transition">Projects</a>
+            <a href="../index.html#services" class="hover:text-white transition">Services</a>
+            <a href="../index.html#blog" class="hover:text-white transition">Blog</a>
+            <a href="../index.html#experience" class="hover:text-white transition">Experience</a>
+            <a href="../index.html#contact" class="hover:text-white transition">Contact</a>
+        </div>
+
+        <div class="md:hidden">
+            <button class="p-2 rounded bg-transparent border border-[#222]">☰</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-[1200px] mx-auto px-6 py-8">
+        <a href="../index.html" class="back-btn">← Back to Home</a>
+
+        <!-- Project Hero Section -->
+        <div class="project-hero">
+            <div class="flex flex-col md:flex-row gap-8 items-start">
+                <div class="flex-1">
+                    <h1 class="font-syne h2-syne mb-4">Modern Campus Resource Booking System</h1>
+                    <p class="font-rubik body-lg muted mb-6">A modern UI/UX design for campus resource booking system with intuitive interface and responsive design, focusing on creating an efficient user experience for students and faculty members.</p>
+                    
+                    <div class="flex flex-wrap mb-6">
+                        <span class="tech-tag">Figma</span>
+                        <span class="tech-tag">UI/UX Design</span>
+                        <span class="tech-tag">Prototyping</span>
+                        <span class="tech-tag">Wireframing</span>
+                        <span class="tech-tag">Design System</span>
+                        <span class="tech-tag">User Research</span>
+                        <span class="tech-tag">Interaction Design</span>
+                    </div>
+                    
+                    <div class="flex flex-wrap">
+                        <a href="https://www.figma.com/make/MA4NRcSkUZzMS2djwuQvTa/Campus-Management-Homepage--Community-?node-id=0-1&p=f&fullscreen=1" class="project-link github-link" target="_blank">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                <path d="M8.84 1.02a.67.67 0 0 0-.95 0l-6.2 6.2a.67.67 0 0 0 0 .95l6.2 6.2a.67.67 0 0 0 .95 0l6.2-6.2a.67.67 0 0 0 0-.95l-6.2-6.2zM8 2.33L13.67 8 8 13.67 2.33 8 8 2.33z"/>
+                                <path d="M8 4.67a.67.67 0 0 0-.67.67v5.33a.67.67 0 1 0 1.34 0V5.33A.67.67 0 0 0 8 4.67z"/>
+                                <path d="M5.33 8a.67.67 0 0 0-.67.67v1.33a.67.67 0 1 0 1.34 0V8.67A.67.67 0 0 0 5.33 8zM10.67 8a.67.67 0 0 0-.67.67v1.33a.67.67 0 1 0 1.34 0V8.67a.67.67 0 0 0-.67-.67z"/>
+                            </svg>
+                            Figma Design
+                        </a>
+                        <a href="https://campus-booking-demo.netlify.app" class="project-link demo-link" target="_blank">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                <path d="M10.5 8a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
+                                <path fill-rule="evenodd" d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 100-7 3.5 3.5 0 000 7z" clip-rule="evenodd"/>
+                            </svg>
+                            Live Demo
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/3">
+                    <div class="glass p-4 rounded-xl">
+                        <img src="../images/campus-booking.jpg" alt="Campus Resource Booking System" class="w-full h-auto rounded-lg">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Details -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Main Content -->
+            <div class="lg:col-span-2">
+                <div class="glass p-8 rounded-2xl mb-8">
+                    <h2 class="font-syne text-3xl mb-6">Project Overview</h2>
+                    <p class="font-rubik body-lg muted mb-6">A comprehensive UI/UX design project for a campus resource booking system, focusing on creating an intuitive and efficient user experience for students and faculty members. The design prioritizes accessibility, usability, and modern aesthetics.</p>
+                    
+                    <div class="section-divider"></div>
+                    
+                    <h3 class="font-syne text-2xl mb-4">Key Features</h3>
+                    <ul class="feature-list">
+                        <li>Modern and clean interface design with consistent visual language</li>
+                        <li>Fully responsive design optimized for all devices and screen sizes</li>
+                        <li>Intuitive resource booking workflow with minimal steps</li>
+                        <li>Real-time availability indicators with color-coded status</li>
+                        <li>Seamless calendar integration for easy scheduling</li>
+                        <li>User-friendly navigation system with clear information hierarchy</li>
+                        <li>Accessibility-focused design following WCAG guidelines</li>
+                        <li>Smart search and filtering capabilities</li>
+                        <li>Booking confirmation and reminder system</li>
+                        <li>Multi-language support interface</li>
+                    </ul>
+                </div>
+
+                <div class="glass p-8 rounded-2xl mb-8">
+                    <h3 class="font-syne text-2xl mb-6">Design Process</h3>
+                    <div class="space-y-6">
+                        <div class="design-process-card">
+                            <div class="process-step">
+                                <div class="process-number">1</div>
+                                <div>
+                                    <h4 class="font-rubik font-semibold text-lg" style="color: var(--brand);">User Research & Discovery</h4>
+                                    <p class="text-sm muted">Conducted interviews with students and faculty to understand pain points and requirements in current booking systems.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="design-process-card">
+                            <div class="process-step">
+                                <div class="process-number">2</div>
+                                <div>
+                                    <h4 class="font-rubik font-semibold text-lg" style="color: var(--brand);">Wireframing & Information Architecture</h4>
+                                    <p class="text-sm muted">Created low-fidelity wireframes and user flow diagrams to establish the foundation of the user experience.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="design-process-card">
+                            <div class="process-step">
+                                <div class="process-number">3</div>
+                                <div>
+                                    <h4 class="font-rubik font-semibold text-lg" style="color: var(--brand);">Visual Design & Prototyping</h4>
+                                    <p class="text-sm muted">Developed high-fidelity mockups and interactive prototypes using Figma for user testing and feedback.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="design-process-card">
+                            <div class="process-step">
+                                <div class="process-number">4</div>
+                                <div>
+                                    <h4 class="font-rubik font-semibold text-lg" style="color: var(--brand);">Design System Creation</h4>
+                                    <p class="text-sm muted">Built a comprehensive design system with reusable components, typography scale, and color palette.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass p-8 rounded-2xl">
+                    <h3 class="font-syne text-2xl mb-4">Design Tools & Technologies</h3>
+                    <p class="font-rubik body-lg muted mb-6">Following a user-centered design approach with comprehensive tools and methodologies to ensure the highest quality user experience.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-rubik font-semibold text-lg mb-3" style="color: var(--brand);">Primary Design Tools</h4>
+                            <ul class="feature-list">
+                                <li>Figma for interface design and prototyping</li>
+                                <li>Adobe Illustrator for custom icons and illustrations</li>
+                                <li>Miro for collaborative brainstorming and user flows</li>
+                                <li>Notion for project documentation and research</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-rubik font-semibold text-lg mb-3" style="color: var(--brand);">Design Deliverables</h4>
+                            <ul class="feature-list">
+                                <li>User flow diagrams and wireframes</li>
+                                <li>Interactive prototypes for user testing</li>
+                                <li>Comprehensive design system documentation</li>
+                                <li>Style guides and component libraries</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="lg:col-span-1">
+                <div class="glass p-6 rounded-2xl mb-6">
+                    <h3 class="font-syne text-xl mb-4">Project Info</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="text-sm muted mb-1">Status</div>
+                            <div class="font-rubik font-medium">Design Completed</div>
+                        </div>
+                        <div>
+                            <div class="text-sm muted mb-1">Timeline</div>
+                            <div class="font-rubik font-medium">6 weeks</div>
+                        </div>
+                        <div>
+                            <div class="text-sm muted mb-1">Team Size</div>
+                            <div class="font-rubik font-medium">Solo Designer</div>
+                        </div>
+                        <div>
+                            <div class="text-sm muted mb-1">Category</div>
+                            <div class="font-rubik font-medium">UI/UX Design</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass p-6 rounded-2xl mb-6">
+                    <h3 class="font-syne text-xl mb-4">Design Principles</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-[var(--brand)]"></div>
+                            <span class="text-sm">User-Centered Design</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-[var(--brand)]"></div>
+                            <span class="text-sm">Accessibility First</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-[var(--brand)]"></div>
+                            <span class="text-sm">Consistent Visual Language</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-[var(--brand)]"></div>
+                            <span class="text-sm">Efficient Workflows</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-[var(--brand)]"></div>
+                            <span class="text-sm">Mobile-First Approach</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass p-6 rounded-2xl">
+                    <h3 class="font-syne text-xl mb-4">User Testing Results</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between">
+                            <span class="muted">Task Success Rate</span>
+                            <span>94%</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="muted">User Satisfaction</span>
+                            <span>4.8/5</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="muted">Time to Complete Booking</span>
+                            <span>45s avg</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="muted">Error Rate</span>
+                            <span>2%</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="muted">Accessibility Score</span>
+                            <span>98/100</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-20 py-12 border-t border-[#222]">
+        <div class="max-w-[1200px] mx-auto px-6 text-center">
+            <p class="font-syne text-2xl mb-4">Get in Touch With Us</p>
+            <a href="mailto:hello@algoinject.com" class="block font-syne text-3xl mb-4 hover:text-[var(--brand)] transition">HELLO@ALGOINJECT.COM</a>
+            <p class="muted">Algo Inject — Bangladesh · +880-XXX-XXXXXX</p>
+            <div class="muted mt-4">© 2024. Algo Inject. All rights reserved.</div>
+        </div>
+    </footer>
+</body>
+</html>

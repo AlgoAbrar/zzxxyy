@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - Algo Inject</title>
+  
+  <!-- Tailwind Browser build (v4.1) -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ========== Brand tokens ========== */
+    :root{
+      --brand: #f57c31;
+      --brand-light: #ff9b6a;
+      --bg-900: #1A1A1A;
+      --bg-800: #262A2C;
+      --muted: #696969;
+      --white: #FFFFFF;
+      --gs-1: #F9FAFB; --gs-2:#F4F4F6; --gs-3:#E5E6EB; --gs-4:#D3D5DA; --gs-5:#9EA3AE;
+      --gs-6:#6C727F; --gs-7:#4D5461; --gs-8:#394150; --gs-9:#212936; --gs-10:#161D21;
+    }
+
+    /* ========== Typography ========== */
+    .font-syne { font-family: 'Syne', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+    .font-rubik { font-family: 'Rubik', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+
+    /* Headline sizes */
+    .h1-syne { font-size: 72px; line-height: 0.98; }
+    .h2-syne { font-size: 64px; line-height: 1; }
+    .h3-syne { font-size: 56px; line-height: 1; }
+    .h4-rubik { font-size: 24px; }
+    .body-lg { font-size: 18px; }
+    .body-md { font-size: 16px; }
+
+    /* Responsive type scaling */
+    @media (max-width: 1024px) {
+      .h1-syne { font-size: 48px; }
+      .h2-syne { font-size: 40px; }
+      .h3-syne { font-size: 36px; }
+    }
+    @media (max-width: 640px) {
+      .h1-syne { font-size: 36px; }
+      .h2-syne { font-size: 32px; }
+      .h3-syne { font-size: 28px; }
+    }
+
+    /* ========== Page baseline ========== */
+    body { 
+      background: linear-gradient(180deg,#0b0b0c,#0f1112); 
+      color: var(--white); 
+      -webkit-font-smoothing:antialiased; 
+      -moz-osx-font-smoothing:grayscale; 
+      overflow-x: hidden;
+    }
+
+    /* ========== Glass cards & accents ========== */
+    .glass {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.03);
+      backdrop-filter: blur(6px);
+      border-radius: 14px;
+    }
+
+    /* ========== Navigation ========== */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(11, 11, 12, 0.8);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* ========== Contact Styles ========== */
+    .contact-hero {
+      background: linear-gradient(135deg, rgba(245,124,49,0.1), rgba(255,155,106,0.05));
+      border-radius: 20px;
+      padding: 60px 40px;
+      margin-bottom: 40px;
+      border: 1px solid rgba(255,255,255,0.05);
+      text-align: center;
+    }
+
+    .contact-card {
+      background: rgba(255,255,255,0.02);
+      border-radius: 16px;
+      padding: 32px;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: all 0.3s ease;
+      height: 100%;
+      text-align: center;
+    }
+
+    .contact-card:hover {
+      background: rgba(255,255,255,0.03);
+      border-color: rgba(245,124,49,0.2);
+      transform: translateY(-8px);
+    }
+
+    .contact-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      background: rgba(245,124,49,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 2rem;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 24px;
+      background: rgba(245,124,49,0.1);
+      color: var(--brand);
+      border-radius: 12px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-family: 'Rubik';
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin: 0.5rem 0;
+    }
+
+    .contact-link:hover {
+      background: rgba(245,124,49,0.2);
+      transform: translateY(-2px);
+      gap: 16px;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      color: var(--gs-3);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-family: 'Rubik';
+    }
+
+    .social-link:hover {
+      background: rgba(245,124,49,0.1);
+      border-color: rgba(245,124,49,0.3);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    .muted { color: var(--gs-5); }
+
+    /* Back button */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 2rem;
+      padding: 12px 24px;
+      background: rgba(245, 124, 49, 0.1);
+      color: var(--brand);
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-family: 'Rubik';
+    }
+
+    .back-btn:hover {
+      background: rgba(245, 124, 49, 0.2);
+      gap: 12px;
+    }
+
+    .availability-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: rgba(34, 197, 94, 0.1);
+      color: #22c55e;
+      border-radius: 20px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-left: 8px;
+    }
+  </style>
+</head>
+<body class="antialiased">
+  <!-- Navigation -->
+  <nav class="flex items-center justify-between py-6 px-6 max-w-[1200px] mx-auto">
+    <div class="flex items-center gap-3">
+      <a href="index.html" class="flex items-center gap-3 glass p-2 rounded-lg">
+        <div class="w-10 h-10 rounded-sm bg-[linear-gradient(180deg,#ff9b6a,#f57c31)] flex items-center justify-center font-syne text-sm">
+          <span style="color: #111; font-weight: bold">AI</span>
+        </div>
+        <div class="text-lg font-syne tracking-wide">ALGO INJECT</div>
+      </a>
+    </div>
+
+    <div class="hidden md:flex items-center gap-6 font-rubik text-[15px] muted">
+      <a href="index.html#projects" class="hover:text-white transition">Projects</a>
+      <a href="index.html#services" class="hover:text-white transition">Services</a>
+      <a href="blog.html" class="hover:text-white transition">Blog</a>
+      <a href="index.html#experience" class="hover:text-white transition">Experience</a>
+      <a href="contact.html" class="hover:text-white transition" style="color: var(--brand);">Contact</a>
+    </div>
+
+    <div class="md:hidden">
+      <button class="p-2 rounded bg-transparent border border-[#222]">☰</button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-[1200px] mx-auto px-6 py-8">
+    <a href="index.html" class="back-btn">← Back to Home</a>
+
+    <!-- Contact Hero Section -->
+    <div class="contact-hero">
+      <div class="max-w-3xl mx-auto">
+        <h1 class="font-syne h2-syne mb-6">Let's Work Together</h1>
+        <p class="font-rubik body-lg muted mb-8">
+          Ready to bring your ideas to life? Get in touch through any of the channels below. 
+          I'm currently available for new projects and collaborations.
+          <span class="availability-badge">
+            <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+            Available for work
+          </span>
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="mailto:hello@algoinject.com" class="contact-link">
+            📧 Send Email
+          </a>
+          <a href="tel:+880XXXXXXXXX" class="contact-link">
+            📞 Call Now
+          </a>
+          <a href="https://wa.me/880XXXXXXXXX" class="contact-link" target="_blank">
+            💬 WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Methods Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+      <!-- Email -->
+      <div class="contact-card">
+        <div class="contact-icon">📧</div>
+        <h3 class="font-syne text-2xl mb-4">Email</h3>
+        <p class="muted mb-6">Perfect for detailed project discussions and formal inquiries</p>
+        <a href="mailto:hello@algoinject.com" class="text-xl font-rubik font-semibold hover:text-[var(--brand)] transition block mb-2">
+          hello@algoinject.com
+        </a>
+        <p class="muted text-sm">Response time: 4-6 hours</p>
+      </div>
+
+      <!-- Phone -->
+      <div class="contact-card">
+        <div class="contact-icon">📱</div>
+        <h3 class="font-syne text-2xl mb-4">Phone</h3>
+        <p class="muted mb-6">Great for quick conversations and urgent matters</p>
+        <a href="tel:+880XXXXXXXXX" class="text-xl font-rubik font-semibold hover:text-[var(--brand)] transition block mb-2">
+          +880 XXX XXXXXXX
+        </a>
+        <p class="muted text-sm">Available 9AM - 6PM (GMT+6)</p>
+      </div>
+
+      <!-- Location -->
+      <div class="contact-card">
+        <div class="contact-icon">📍</div>
+        <h3 class="font-syne text-2xl mb-4">Location</h3>
+        <p class="muted mb-6">Based in Bangladesh, working with clients worldwide</p>
+        <p class="text-xl font-rubik font-semibold mb-2">Bangladesh</p>
+        <p class="muted text-sm">Remote collaboration available</p>
+      </div>
+    </div>
+
+    <!-- Social Links Section -->
+    <div class="glass p-8 rounded-2xl mb-12">
+      <div class="text-center mb-8">
+        <h2 class="font-syne text-3xl mb-4">Follow My Work</h2>
+        <p class="font-rubik body-lg muted max-w-2xl mx-auto">
+          Stay updated with my latest projects, technical insights, and open-source contributions across different platforms.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
+        <a href="https://github.com/AlgoAbrar" class="social-link" target="_blank">
+          <span>🐙</span> GitHub
+        </a>
+        <a href="https://linkedin.com/in/yourprofile" class="social-link" target="_blank">
+          <span>💼</span> LinkedIn
+        </a>
+        <a href="https://twitter.com/yourprofile" class="social-link" target="_blank">
+          <span>🐦</span> Twitter
+        </a>
+        <a href="https://www.facebook.com/yourprofile" class="social-link" target="_blank">
+          <span>👥</span> Facebook
+        </a>
+      </div>
+    </div>
+
+    <!-- Quick Info Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Working Hours -->
+      <div class="glass p-8 rounded-2xl">
+        <h3 class="font-syne text-2xl mb-6">Working Hours</h3>
+        <div class="space-y-4">
+          <div class="flex justify-between items-center py-3 border-b border-[#2a2a2a]">
+            <span class="font-rubik">Monday - Friday</span>
+            <span class="font-rubik font-semibold" style="color: var(--brand);">9:00 AM - 6:00 PM</span>
+          </div>
+          <div class="flex justify-between items-center py-3 border-b border-[#2a2a2a]">
+            <span class="font-rubik">Saturday</span>
+            <span class="font-rubik font-semibold" style="color: var(--brand);">10:00 AM - 4:00 PM</span>
+          </div>
+          <div class="flex justify-between items-center py-3">
+            <span class="font-rubik">Sunday</span>
+            <span class="font-rubik font-semibold muted">Closed</span>
+          </div>
+        </div>
+        <p class="muted text-sm mt-4">* All times in GMT+6 (Bangladesh Time)</p>
+      </div>
+
+      <!-- Services Quick Reference -->
+      <div class="glass p-8 rounded-2xl">
+        <h3 class="font-syne text-2xl mb-6">Services I Offer</h3>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="flex items-center gap-3">
+            <div class="w-2 h-2 bg-[var(--brand)] rounded-full"></div>
+            <span class="font-rubik text-sm">Web Development</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-2 h-2 bg-[var(--brand)] rounded-full"></div>
+            <span class="font-rubik text-sm">Mobile Apps</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-2 h-2 bg-[var(--brand)] rounded-full"></div>
+            <span class="font-rubik text-sm">AI Solutions</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-2 h-2 bg-[var(--brand)] rounded-full"></div>
+            <span class="font-rubik text-sm">UI/UX Design</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-2 h-2 bg-[var(--brand)] rounded-full"></div>
+            <span class="font-rubik text-sm">System Architecture</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-2 h-2 bg-[var(--brand)] rounded-full"></div>
+            <span class="font-rubik text-sm">Technical Consultation</span>
+          </div>
+        </div>
+        <p class="muted text-sm mt-4">Looking for something else? Just ask!</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-20 py-12 border-t border-[#222]">
+    <div class="max-w-[1200px] mx-auto px-6 text-center">
+      <p class="font-syne text-2xl mb-4">Get in Touch With Us</p>
+      <a href="mailto:hello@algoinject.com" class="block font-syne text-3xl mt-4 hover:text-[var(--brand)] transition">HELLO@ALGOINJECT.COM</a>
+      <p class="mt-6 muted">Algo Inject — Bangladesh · +880-XXX-XXXXXX</p>
+      <div class="muted mt-4">© 2024. Algo Inject. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Simple animation for contact cards on load
+    document.addEventListener('DOMContentLoaded', function() {
+      const cards = document.querySelectorAll('.contact-card');
+      cards.forEach((card, index) => {
+        setTimeout(() => {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, index * 200);
+      });
+    });
+
+    // Add smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

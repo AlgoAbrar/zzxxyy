@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      AI vs Data Science vs Machine Learning: Understanding the Relationship |
+      Algo Inject
+    </title>
+
+    <!-- Tailwind Browser build (v4.1) -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Rubik:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ========== Brand tokens ========== */
+      :root {
+        --brand: #f57c31;
+        --brand-light: #ff9b6a;
+        --bg-900: #1a1a1a;
+        --bg-800: #262a2c;
+        --muted: #696969;
+        --white: #ffffff;
+        --gs-1: #f9fafb;
+        --gs-2: #f4f4f6;
+        --gs-3: #e5e6eb;
+        --gs-4: #d3d5da;
+        --gs-5: #9ea3ae;
+        --gs-6: #6c727f;
+        --gs-7: #4d5461;
+        --gs-8: #394150;
+        --gs-9: #212936;
+        --gs-10: #161d21;
+      }
+
+      /* ========== Typography ========== */
+      .font-syne {
+        font-family: "Syne", system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial;
+      }
+      .font-rubik {
+        font-family: "Rubik", system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial;
+      }
+
+      /* ========== Page baseline ========== */
+      body {
+        background: linear-gradient(180deg, #0b0b0c, #0f1112);
+        color: var(--white);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        line-height: 1.6;
+      }
+
+      /* Glass effect */
+      .glass {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0.01)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(6px);
+        border-radius: 14px;
+      }
+
+      /* Blog content styles */
+      .blog-content {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .blog-content h1 {
+        font-family: "Syne";
+        font-size: 3rem;
+        font-weight: 700;
+        line-height: 1.1;
+        margin-bottom: 1.5rem;
+      }
+
+      .blog-content h2 {
+        font-family: "Syne";
+        font-size: 2rem;
+        font-weight: 600;
+        margin: 2.5rem 0 1rem 0;
+        color: var(--brand);
+      }
+
+      .blog-content h3 {
+        font-family: "Syne";
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin: 2rem 0 1rem 0;
+      }
+
+      .blog-content p {
+        font-family: "Rubik";
+        font-size: 1.125rem;
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+        color: var(--gs-3);
+      }
+
+      .blog-content ul,
+      .blog-content ol {
+        font-family: "Rubik";
+        font-size: 1.125rem;
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+        color: var(--gs-3);
+        padding-left: 1.5rem;
+      }
+
+      .blog-content li {
+        margin-bottom: 0.5rem;
+      }
+
+      .blog-meta {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        font-family: "Rubik";
+        color: var(--gs-5);
+        flex-wrap: wrap;
+      }
+
+      .blog-tag {
+        background: rgba(245, 124, 49, 0.1);
+        color: var(--brand);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.875rem;
+        font-weight: 500;
+      }
+
+      .blog-image {
+        width: 100%;
+        border-radius: 12px;
+        margin: 2rem 0;
+      }
+
+      .concept-diagram {
+        background: linear-gradient(180deg, #0b0b0b, #0e0e0e);
+        border: 1px solid rgba(255, 255, 255, 0.03);
+        border-radius: 14px;
+        padding: 2rem;
+        margin: 2rem 0;
+      }
+
+      .back-to-blog {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 3rem;
+        padding: 12px 24px;
+        background: rgba(245, 124, 49, 0.1);
+        color: var(--brand);
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-family: "Rubik";
+      }
+
+      .back-to-blog:hover {
+        background: rgba(245, 124, 49, 0.2);
+        gap: 12px;
+      }
+
+      /* Navigation */
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(10px);
+        background: rgba(11, 11, 12, 0.8);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .definition-box {
+        background: rgba(255, 255, 255, 0.02);
+        border-left: 4px solid var(--brand);
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        border-radius: 0 8px 8px 0;
+      }
+
+      .reference {
+        font-size: 0.9rem;
+        color: var(--gs-5);
+        font-style: italic;
+        margin-top: 0.5rem;
+      }
+
+      .key-point {
+        background: rgba(245, 124, 49, 0.05);
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 1rem 0;
+        border-left: 3px solid var(--brand);
+      }
+
+      @media (max-width: 768px) {
+        .blog-content h1 {
+          font-size: 2rem;
+        }
+
+        .blog-content h2 {
+          font-size: 1.5rem;
+        }
+
+        .blog-content h3 {
+          font-size: 1.25rem;
+        }
+
+        .blog-content p {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body class="antialiased">
+    <!-- NAVIGATION -->
+    <nav class="flex items-center justify-between py-6 px-6">
+      <div class="flex items-center gap-3">
+        <a
+          href="../index.html"
+          class="flex items-center gap-3 glass p-2 rounded-lg"
+        >
+          <div
+            class="w-10 h-10 rounded-sm bg-[linear-gradient(180deg,#ff9b6a,#f57c31)] flex items-center justify-center font-syne text-sm"
+          >
+            <span style="color: #111; font-weight: bold">AI</span>
+          </div>
+          <div class="text-lg font-syne tracking-wide">ALGO INJECT</div>
+        </a>
+      </div>
+
+      <div class="flex items-center gap-6 font-rubik text-[15px] muted">
+        <a href="../index.html" class="hover:text-white transition">Home</a>
+        <a href="../blog.html" class="hover:text-white transition">Blog</a>
+      </div>
+    </nav>
+
+    <!-- BLOG CONTENT -->
+    <main class="blog-content px-6 py-12">
+      <article>
+        <header class="mb-8">
+          <h1>
+            AI vs Data Science vs Machine Learning: Understanding the
+            Relationship
+          </h1>
+          <div class="blog-meta">
+            <span>December 15, 2024</span>
+            <span>•</span>
+            <span>12 min read</span>
+            <span>•</span>
+            <span class="blog-tag">AI & Data Science</span>
+            <span class="blog-tag">Machine Learning</span>
+            <span class="blog-tag">Technology</span>
+          </div>
+        </header>
+
+        <img
+          src="../images/blog/ai-ds-ml-banner.png"
+          alt="AI, Data Science and Machine Learning Relationship"
+          class="blog-image"
+        />
+
+        <div class="key-point">
+          <p>
+            <strong>Key Insight:</strong> While often used interchangeably, AI,
+            Data Science, and Machine Learning represent distinct but deeply
+            interconnected disciplines. Understanding their relationships is
+            crucial for navigating today's technology landscape effectively.
+          </p>
+        </div>
+
+        <p>
+          In the rapidly evolving world of technology, three terms dominate
+          conversations about innovation and digital transformation: Artificial
+          Intelligence (AI), Data Science, and Machine Learning (ML). While
+          these fields are deeply interconnected and often work in tandem, they
+          represent distinct disciplines with unique focuses, methodologies, and
+          applications.
+        </p>
+
+        <p>
+          According to a 2023 MIT Technology Review study, confusion between
+          these terms leads to significant misunderstandings in business
+          strategy and technical implementation. This comprehensive guide will
+          clarify the relationships and distinctions between these
+          transformative fields.
+        </p>
+
+        <h2>Defining the Core Concepts</h2>
+
+        <div class="definition-box">
+          <h3>🤖 Artificial Intelligence (AI)</h3>
+          <p>
+            <strong>AI is the broadest concept</strong> - it refers to the
+            capability of machines to imitate intelligent human behavior,
+            including learning, reasoning, problem-solving, perception, and
+            linguistic intelligence. The term was first coined by John McCarthy
+            in 1956 as "the science and engineering of making intelligent
+            machines."
+          </p>
+          <p class="reference">
+            Reference: McCarthy, J., Minsky, M. L., Rochester, N., & Shannon, C.
+            E. (1956). A Proposal for the Dartmouth Summer Research Project on
+            Artificial Intelligence.
+          </p>
+        </div>
+
+        <div class="definition-box">
+          <h3>🧠 Machine Learning (ML)</h3>
+          <p>
+            <strong>ML is a subset of AI</strong> that focuses on developing
+            algorithms and statistical models that enable computers to improve
+            their performance on specific tasks through experience, without
+            being explicitly programmed. As defined by Tom Mitchell: "A computer
+            program is said to learn from experience E with respect to some
+            class of tasks T and performance measure P, if its performance at
+            tasks in T, as measured by P, improves with experience E."
+          </p>
+          <p class="reference">
+            Reference: Mitchell, T. M. (1997). Machine Learning. McGraw-Hill.
+          </p>
+        </div>
+
+        <div class="definition-box">
+          <h3>📊 Data Science</h3>
+          <p>
+            <strong>Data Science is an interdisciplinary field</strong> that
+            uses scientific methods, processes, algorithms, and systems to
+            extract knowledge and insights from structured and unstructured
+            data. It combines domain expertise, programming skills, and
+            knowledge of mathematics and statistics. Data Science focuses on the
+            entire data lifecycle, from collection and cleaning to analysis and
+            interpretation.
+          </p>
+          <p class="reference">
+            Reference: Dhar, V. (2013). Data Science and Prediction.
+            Communications of the ACM.
+          </p>
+        </div>
+
+        <h2>The Hierarchical Relationship</h2>
+
+        <div class="concept-diagram">
+          <h3 style="color: var(--brand); text-align: center; margin-top: 0">
+            The Technology Hierarchy
+          </h3>
+          <div
+            style="text-align: center; font-family: 'Rubik'; color: var(--gs-3)"
+          >
+            <div
+              style="
+                background: rgba(245, 124, 49, 0.1);
+                padding: 1.5rem;
+                border-radius: 8px;
+                margin: 1rem 0;
+              "
+            >
+              <p
+                style="
+                  font-size: 1.5rem;
+                  margin-bottom: 0.5rem;
+                  font-weight: 600;
+                "
+              >
+                🏛️ Artificial Intelligence
+              </p>
+              <p style="margin: 0; font-size: 0.9rem">
+                The overarching field of creating intelligent machines
+              </p>
+            </div>
+            <p style="margin: 0.5rem 0; font-size: 1.5rem">↓</p>
+            <div
+              style="
+                background: rgba(245, 124, 49, 0.08);
+                padding: 1.25rem;
+                border-radius: 8px;
+                margin: 1rem 0;
+              "
+            >
+              <p
+                style="
+                  font-size: 1.25rem;
+                  margin-bottom: 0.5rem;
+                  font-weight: 600;
+                "
+              >
+                🤖 Machine Learning
+              </p>
+              <p style="margin: 0; font-size: 0.9rem">
+                Subset of AI focused on learning from data
+              </p>
+            </div>
+            <p style="margin: 0.5rem 0; font-size: 1.5rem">↓</p>
+            <div
+              style="
+                background: rgba(245, 124, 49, 0.06);
+                padding: 1rem;
+                border-radius: 8px;
+                margin: 1rem 0;
+              "
+            >
+              <p
+                style="
+                  font-size: 1.125rem;
+                  margin-bottom: 0.5rem;
+                  font-weight: 600;
+                "
+              >
+                🧠 Deep Learning
+              </p>
+              <p style="margin: 0; font-size: 0.9rem">
+                Subset of ML using neural networks
+              </p>
+            </div>
+            <div
+              style="
+                margin-top: 2rem;
+                padding-top: 1rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+              "
+            >
+              <p style="font-size: 1.25rem; font-weight: 600">
+                🔄 Data Science
+              </p>
+              <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem">
+                Interdisciplinary field that uses AI/ML as tools
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <h2>How They Work Together: The Symbiotic Relationship</h2>
+
+        <h3>The Data Science → Machine Learning Pipeline</h3>
+        <p>
+          Data Science provides the foundation for Machine Learning. The process
+          typically follows this pipeline:
+        </p>
+        <ol>
+          <li>
+            <strong>Data Collection & Cleaning</strong> (Data Science):
+            Gathering and preparing raw data
+          </li>
+          <li>
+            <strong>Exploratory Data Analysis</strong> (Data Science):
+            Understanding patterns and relationships
+          </li>
+          <li>
+            <strong>Feature Engineering</strong> (Data Science): Creating
+            meaningful input variables
+          </li>
+          <li>
+            <strong>Model Training</strong> (Machine Learning): Algorithms learn
+            from prepared data
+          </li>
+          <li>
+            <strong>Model Evaluation</strong> (Both): Assessing performance and
+            accuracy
+          </li>
+          <li>
+            <strong>Deployment & Monitoring</strong> (AI Engineering):
+            Implementing in production systems
+          </li>
+        </ol>
+
+        <h3>Machine Learning as AI's Implementation Engine</h3>
+        <p>
+          While traditional AI relied on hard-coded rules and expert systems,
+          Machine Learning represents a paradigm shift. Instead of programming
+          every possible scenario, ML algorithms learn patterns from data,
+          making AI systems more adaptable, scalable, and capable of handling
+          complex, real-world problems.
+        </p>
+
+        <p>
+          A 2024 Stanford AI Index Report found that ML-driven AI systems have
+          achieved human-level performance in specific tasks like image
+          recognition and language translation, demonstrating the power of this
+          approach.
+        </p>
+
+        <h2>Comprehensive Comparison</h2>
+
+        <div class="concept-diagram">
+          <h3 style="color: var(--brand); text-align: center; margin-top: 0">
+            Comparative Analysis
+          </h3>
+          <div style="font-family: 'Rubik'; color: var(--gs-3)">
+            <div
+              style="
+                display: grid;
+                grid-template-columns: 1.5fr 2fr 2fr 2fr;
+                gap: 1rem;
+                margin-bottom: 1rem;
+                font-weight: 600;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding-bottom: 0.5rem;
+              "
+            >
+              <div>Aspect</div>
+              <div>Artificial Intelligence</div>
+              <div>Data Science</div>
+              <div>Machine Learning</div>
+            </div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: 1.5fr 2fr 2fr 2fr;
+                gap: 1rem;
+                margin-bottom: 1rem;
+                padding-bottom: 0.5rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+              "
+            >
+              <div style="font-weight: 600">Primary Goal</div>
+              <div>
+                Create intelligent systems that can perform tasks requiring
+                human intelligence
+              </div>
+              <div>
+                Extract insights and knowledge from data to drive
+                decision-making
+              </div>
+              <div>
+                Enable computers to learn from data and make predictions or
+                decisions
+              </div>
+            </div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: 1.5fr 2fr 2fr 2fr;
+                gap: 1rem;
+                margin-bottom: 1rem;
+                padding-bottom: 0.5rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+              "
+            >
+              <div style="font-weight: 600">Scope & Focus</div>
+              <div>
+                Broadest scope, includes reasoning, knowledge representation,
+                robotics
+              </div>
+              <div>
+                Interdisciplinary, focuses on entire data lifecycle and business
+                impact
+              </div>
+              <div>
+                Specific focus on algorithms that improve through experience
+              </div>
+            </div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: 1.5fr 2fr 2fr 2fr;
+                gap: 1rem;
+                margin-bottom: 1rem;
+                padding-bottom: 0.5rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+              "
+            >
+              <div style="font-weight: 600">Key Techniques</div>
+              <div>
+                Machine Learning, Natural Language Processing, Computer Vision,
+                Expert Systems
+              </div>
+              <div>
+                Statistical Analysis, Data Visualization, Data Mining,
+                Predictive Modeling
+              </div>
+              <div>
+                Neural Networks, Decision Trees, Support Vector Machines,
+                Clustering
+              </div>
+            </div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: 1.5fr 2fr 2fr 2fr;
+                gap: 1rem;
+                margin-bottom: 1rem;
+                padding-bottom: 0.5rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+              "
+            >
+              <div style="font-weight: 600">Output</div>
+              <div>
+                Intelligent systems, autonomous agents, smart applications
+              </div>
+              <div>
+                Data-driven insights, reports, dashboards, business intelligence
+              </div>
+              <div>
+                Predictive models, classification systems, recommendation
+                engines
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h2>Real-World Applications and Case Studies</h2>
+
+        <h3>Healthcare: Revolutionizing Patient Care</h3>
+        <p>
+          <strong>Data Science</strong> analyzes electronic health records to
+          identify population health trends and risk factors.
+          <strong>Machine Learning</strong> develops predictive models for
+          disease diagnosis and treatment outcomes. <strong>AI</strong> creates
+          intelligent systems that assist radiologists in detecting anomalies
+          and surgeons in planning complex procedures.
+        </p>
+
+        <p>
+          <em>Case Study:</em> Google's DeepMind Health developed an AI system
+          that can detect over 50 eye diseases with 94% accuracy, matching
+          world-leading experts (Nature Medicine, 2023).
+        </p>
+
+        <h3>E-commerce: Personalizing the Shopping Experience</h3>
+        <p>
+          <strong>Data Science</strong> analyzes customer behavior, purchase
+          patterns, and market trends. <strong>Machine Learning</strong> powers
+          sophisticated recommendation engines and demand forecasting systems.
+          <strong>AI</strong> creates virtual shopping assistants and chatbots
+          that provide personalized customer service.
+        </p>
+
+        <p>
+          <em>Case Study:</em> Amazon's recommendation engine, driven by ML
+          algorithms, is estimated to drive 35% of total revenue by suggesting
+          relevant products to customers.
+        </p>
+
+        <h3>Finance: Transforming Risk Management</h3>
+        <p>
+          <strong>Data Science</strong> processes vast amounts of transaction
+          data to identify patterns and anomalies.
+          <strong>Machine Learning</strong> develops fraud detection models and
+          credit scoring systems. <strong>AI</strong> creates algorithmic
+          trading systems and robo-advisors that automate investment decisions.
+        </p>
+
+        <h2>Career Paths and Skill Requirements</h2>
+
+        <p>
+          Understanding these distinctions is crucial for career planning and
+          skill development in the tech industry:
+        </p>
+
+        <div class="concept-diagram">
+          <h3 style="color: var(--brand); text-align: center; margin-top: 0">
+            Career Focus Areas
+          </h3>
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+              gap: 1.5rem;
+              margin-top: 1rem;
+            "
+          >
+            <div
+              style="
+                background: rgba(255, 255, 255, 0.02);
+                padding: 1.5rem;
+                border-radius: 8px;
+              "
+            >
+              <h4 style="color: var(--brand); margin-top: 0">AI Engineer</h4>
+              <ul style="font-size: 0.9rem; padding-left: 1rem">
+                <li>Focuses on creating intelligent systems</li>
+                <li>Strong programming and algorithms</li>
+                <li>Knowledge of NLP, computer vision</li>
+                <li>System architecture design</li>
+              </ul>
+            </div>
+            <div
+              style="
+                background: rgba(255, 255, 255, 0.02);
+                padding: 1.5rem;
+                border-radius: 8px;
+              "
+            >
+              <h4 style="color: var(--brand); margin-top: 0">Data Scientist</h4>
+              <ul style="font-size: 0.9rem; padding-left: 1rem">
+                <li>Extracts insights from complex data</li>
+                <li>Strong statistical background</li>
+                <li>Data visualization expertise</li>
+                <li>Domain knowledge application</li>
+              </ul>
+            </div>
+            <div
+              style="
+                background: rgba(255, 255, 255, 0.02);
+                padding: 1.5rem;
+                border-radius: 8px;
+              "
+            >
+              <h4 style="color: var(--brand); margin-top: 0">ML Engineer</h4>
+              <ul style="font-size: 0.9rem; padding-left: 1rem">
+                <li>Builds and deploys ML models</li>
+                <li>Strong mathematical foundation</li>
+                <li>Model optimization skills</li>
+                <li>Production system deployment</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <h2>The Future: Convergence and Specialization</h2>
+
+        <p>
+          As technology evolves, we're witnessing both convergence and
+          specialization in these fields:
+        </p>
+
+        <h3>Convergence Trends</h3>
+        <ul>
+          <li>
+            <strong>AutoML</strong> platforms are making machine learning more
+            accessible to data scientists
+          </li>
+          <li>
+            <strong>MLOps</strong> practices are bridging the gap between data
+            science and engineering
+          </li>
+          <li>
+            <strong>Explainable AI (XAI)</strong> is creating common ground
+            between technical and business stakeholders
+          </li>
+        </ul>
+
+        <h3>Emerging Specializations</h3>
+        <ul>
+          <li>
+            <strong>AI Ethics and Governance</strong>: Ensuring responsible AI
+            development and deployment
+          </li>
+          <li>
+            <strong>Data Engineering</strong>: Building robust data
+            infrastructure for AI systems
+          </li>
+          <li>
+            <strong>MLOps Engineering</strong>: Streamlining the deployment and
+            monitoring of ML models
+          </li>
+        </ul>
+
+        <div class="key-point">
+          <p>
+            <strong>The Essential Insight:</strong> AI represents the
+            <strong>ambition</strong> of creating intelligent systems, Machine
+            Learning provides the <strong>methodology</strong> for achieving
+            that intelligence through data, and Data Science offers the
+            <strong>foundation</strong> of understanding and preparing that
+            data. The most successful organizations understand how to leverage
+            all three in harmony.
+          </p>
+        </div>
+
+        <h2>Conclusion</h2>
+
+        <p>
+          Understanding the distinctions and relationships between Artificial
+          Intelligence, Data Science, and Machine Learning is no longer just
+          academic—it's essential for making informed decisions in technology
+          strategy, career development, and business innovation. While these
+          fields will continue to evolve and their boundaries may shift, their
+          core relationships will remain fundamental to how we create value from
+          data and intelligence.
+        </p>
+
+        <p>
+          As Andrew Ng famously stated, "AI is the new electricity." Just as
+          electricity transformed countless industries, AI—powered by Machine
+          Learning and enabled by Data Science—is poised to redefine what's
+          possible across every sector of our economy and society.
+        </p>
+
+        <div
+          style="
+            background: rgba(245, 124, 49, 0.05);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+          "
+        >
+          <h3 style="color: var(--brand); margin-top: 0">
+            Ready to Dive Deeper?
+          </h3>
+          <p>
+            Explore more articles on AI, Data Science, and emerging technologies
+            in our
+            <a
+              href="../blog.html"
+              style="color: var(--brand); text-decoration: underline"
+              >blog section</a
+            >
+            or get in touch to discuss how these technologies can transform your
+            projects.
+          </p>
+        </div>
+
+        <a href="../blog.html" class="back-to-blog"> ← Back to All Articles </a>
+      </article>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="mt-20 py-12 px-6 border-t border-[#2a2a2a]">
+      <div class="max-w-[1200px] mx-auto text-center">
+        <p class="font-syne text-2xl">Get in Touch With Us</p>
+        <a
+          href="mailto:hello@algoinject.com"
+          class="block font-syne text-3xl mt-4 hover:text-[var(--brand)] transition"
+          >HELLO@ALGOINJECT.COM</a
+        >
+        <p class="mt-6 muted font-rubik">
+          Algo Inject — Bangladesh · +880-XXX-XXXXXX
+        </p>
+        <div class="muted mt-4 font-rubik">
+          © 2024. Algo Inject. All rights reserved.
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

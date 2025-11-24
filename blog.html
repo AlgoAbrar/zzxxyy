@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>All Articles - Algo Inject</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Rubik:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Complete CSS with all variables */
+      :root {
+        --brand: #f57c31;
+        --brand-light: #ff9b6a;
+        --bg-900: #1a1a1a;
+        --bg-800: #262a2c;
+        --muted: #696969;
+        --white: #ffffff;
+        --gs-1: #f9fafb;
+        --gs-2: #f4f4f6;
+        --gs-3: #e5e6eb;
+        --gs-4: #d3d5da;
+        --gs-5: #9ea3ae;
+        --gs-6: #6c727f;
+        --gs-7: #4d5461;
+        --gs-8: #394150;
+        --gs-9: #212936;
+        --gs-10: #161d21;
+      }
+
+      body {
+        background: linear-gradient(180deg, #0b0b0c, #0f1112);
+        color: var(--white);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overflow-x: hidden;
+      }
+
+      .font-syne {
+        font-family: "Syne", system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial;
+      }
+      .font-rubik {
+        font-family: "Rubik", system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial;
+      }
+
+      .glass {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0.01)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(6px);
+        border-radius: 14px;
+      }
+
+      .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+        margin-top: 24px;
+      }
+
+      @media (max-width: 1024px) {
+        .blog-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .blog-card {
+        background: linear-gradient(180deg, #0b0b0b, #0e0e0e);
+        border-radius: 14px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.03);
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .blog-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 10px 30px rgba(245, 124, 49, 0.15);
+      }
+
+      .blog-card-image {
+        height: 240px;
+        width: 100%;
+        object-fit: cover;
+      }
+
+      .blog-card-content {
+        padding: 24px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .blog-tag {
+        background: rgba(245, 124, 49, 0.1);
+        color: var(--brand);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 500;
+        display: inline-block;
+        margin-bottom: 12px;
+      }
+
+      .filter-btn {
+        padding: 8px 16px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--gs-5);
+        font-size: 14px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        margin: 4px;
+      }
+
+      .filter-btn.active,
+      .filter-btn:hover {
+        background: var(--brand);
+        color: #111;
+        border-color: var(--brand);
+      }
+
+      .back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 2rem;
+        padding: 12px 24px;
+        background: rgba(245, 124, 49, 0.1);
+        color: var(--brand);
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-family: "Rubik";
+      }
+
+      .back-btn:hover {
+        background: rgba(245, 124, 49, 0.2);
+        gap: 12px;
+      }
+
+      .muted {
+        color: var(--gs-5);
+      }
+
+      .blog-read-more {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 16px;
+        color: var(--brand);
+        font-weight: 500;
+        transition: gap 0.3s ease;
+        text-decoration: none;
+        font-family: "Rubik";
+      }
+
+      .blog-read-more:hover {
+        gap: 10px;
+      }
+
+      .blog-card-meta {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 12px;
+        font-size: 14px;
+        color: var(--gs-5);
+        font-family: "Rubik";
+      }
+
+      /* Loading animation */
+      .loading {
+        background: linear-gradient(
+          90deg,
+          #0a0a0a 25%,
+          #131313 50%,
+          #0a0a0a 75%
+        );
+        background-size: 200% 100%;
+        animation: loading 1.5s infinite;
+      }
+
+      @keyframes loading {
+        0% {
+          background-position: 200% 0;
+        }
+        100% {
+          background-position: -200% 0;
+        }
+      }
+
+      /* Navigation styles */
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(10px);
+        background: rgba(11, 11, 12, 0.8);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+    </style>
+  </head>
+  <body class="antialiased">
+    <!-- Navigation will be loaded here -->
+    <div id="nav-container"></div>
+
+    <main class="max-w-[1200px] mx-auto px-6 py-12">
+      <a href="index.html" class="back-btn">← Back to Home</a>
+
+      <header class="mb-8">
+        <h1 class="font-syne text-4xl">All Articles</h1>
+        <p class="font-rubik text-lg muted mt-4">
+          Technical insights, tutorials, and thoughts on AI, machine learning,
+          and software development.
+        </p>
+      </header>
+
+      <!-- Blog Filters -->
+      <div class="blog-filter flex flex-wrap gap-2 mb-8" id="blog-filters">
+        <button class="filter-btn active" data-filter="all">
+          All Articles
+        </button>
+        <!-- Filters will be auto-generated -->
+      </div>
+
+      <!-- Blog Grid - THIS IS WHAT INDEX.HTML LOOKS FOR -->
+      <div class="blog-grid" id="blog-grid">
+        <!-- Blog cards will be loaded here by JavaScript -->
+      </div>
+    </main>
+
+    <script>
+      // Load navigation
+      document.addEventListener("DOMContentLoaded", function () {
+        fetch("index.html")
+          .then((response) => {
+            if (!response.ok) throw new Error("Network response was not ok");
+            return response.text();
+          })
+          .then((html) => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, "text/html");
+            const nav = doc.querySelector("nav");
+            if (nav) {
+              document.getElementById("nav-container").innerHTML =
+                nav.outerHTML;
+              // Re-attach mobile menu functionality
+              attachMobileMenu();
+            }
+          })
+          .catch((error) => {
+            console.error("Error loading navigation:", error);
+            // Fallback navigation
+            document.getElementById("nav-container").innerHTML = `
+              <nav class="flex items-center justify-between py-6 px-6">
+                <div class="flex items-center gap-3">
+                  <a href="index.html" class="text-lg font-syne tracking-wide">ALGO INJECT</a>
+                </div>
+                <a href="index.html" class="back-btn">← Back to Home</a>
+              </nav>
+            `;
+          });
+
+        // Blog data - this is what index.html will extract
+        const blogPosts = [
+          {
+            title:
+              "AI vs Data Science vs Machine Learning: Understanding the Relationship",
+            excerpt:
+              "A comprehensive guide to understanding how Artificial Intelligence, Data Science, and Machine Learning relate to each other and their distinct roles in technology.",
+            date: "November 15, 2025",
+            readTime: "8 min read",
+            tag: "AI",
+            category: "ai",
+            link: "blog/ai-data-science-machine-learning.html",
+            image: "images/blog/ai-ds-ml-banner.png",
+          },
+          {
+            title:
+              "Object-Oriented Programming: Java vs C++ - Complete Guide for Developers",
+            excerpt:
+              "A comprehensive comparison of OOP implementation in Java and C++, covering fundamental differences, memory management, and practical use cases for modern software development.",
+            date: "November 18, 2025",
+            readTime: "10 min read",
+            tag: "Programming",
+            category: "programming",
+            link: "blog/oop-in-java-vs-cpp.html",
+            image: "images/blog/oop-java-cpp-banner.png",
+          },
+        ];
+
+        // Render blog posts
+        const blogGrid = document.getElementById("blog-grid");
+
+        // Get unique categories from actual posts
+        const allCategories = new Set(blogPosts.map((post) => post.category));
+
+        // Clear loading state
+        blogGrid.innerHTML = "";
+
+        blogPosts.forEach((post) => {
+          // Create blog card
+          const blogCard = document.createElement("article");
+          blogCard.className = "blog-card";
+          blogCard.setAttribute("data-category", post.category);
+
+          blogCard.innerHTML = `
+            <div class="blog-media">
+              ${
+                post.image
+                  ? `<img src="${post.image}" alt="${post.title}" class="blog-card-image">`
+                  : '<div class="loading w-full h-full"></div>'
+              }
+            </div>
+            <div class="blog-card-content">
+              <span class="blog-tag">${post.tag}</span>
+              <h3 class="font-syne text-xl">${post.title}</h3>
+              <p class="muted mt-3 flex-1">${post.excerpt}</p>
+              <div class="blog-card-meta">
+                <span>${post.date}</span>
+                <span>${post.readTime}</span>
+              </div>
+              <a href="${post.link}" class="blog-read-more">Read More →</a>
+            </div>
+          `;
+
+          blogGrid.appendChild(blogCard);
+        });
+
+        // Generate filter buttons from actual categories
+        allCategories.forEach((category) => {
+          const filterBtn = document.createElement("button");
+          filterBtn.className = "filter-btn";
+          filterBtn.textContent =
+            category.charAt(0).toUpperCase() + category.slice(1);
+          filterBtn.setAttribute("data-filter", category.toLowerCase());
+          document.getElementById("blog-filters").appendChild(filterBtn);
+        });
+
+        // Add filtering functionality
+        const filterButtons = document.querySelectorAll(".filter-btn");
+        const blogCards = document.querySelectorAll(".blog-card");
+
+        filterButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            filterButtons.forEach((btn) => btn.classList.remove("active"));
+            this.classList.add("active");
+
+            const filterValue = this.getAttribute("data-filter");
+
+            blogCards.forEach((card) => {
+              if (
+                filterValue === "all" ||
+                card.getAttribute("data-category") === filterValue
+              ) {
+                card.style.display = "flex";
+              } else {
+                card.style.display = "none";
+              }
+            });
+          });
+        });
+      });
+
+      // Mobile menu functionality
+      function attachMobileMenu() {
+        const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
+        const closeMenuBtn = document.getElementById("close-menu");
+
+        if (mobileMenuBtn && mobileMenu) {
+          mobileMenuBtn.addEventListener("click", () => {
+            mobileMenu.classList.add("active");
+            document.body.style.overflow = "hidden";
+          });
+        }
+
+        if (closeMenuBtn && mobileMenu) {
+          closeMenuBtn.addEventListener("click", () => {
+            mobileMenu.classList.remove("active");
+            document.body.style.overflow = "";
+          });
+        }
+
+        const mobileLinks = mobileMenu?.querySelectorAll("a");
+        mobileLinks?.forEach((link) => {
+          link.addEventListener("click", () => {
+            mobileMenu.classList.remove("active");
+            document.body.style.overflow = "";
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

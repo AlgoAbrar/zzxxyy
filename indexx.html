@@ -1,0 +1,903 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Algo Inject</title>
+
+  <!-- Tailwind Browser build (v4.1) -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ========== Brand tokens (change here if needed) ========== */
+    :root{
+      --brand: #f57c31;
+      --brand-light: #ff9b6a;
+      --bg-900: #1A1A1A;
+      --bg-800: #262A2C;
+      --muted: #696969;
+      --white: #FFFFFF;
+
+      /* Greyscale (you provided) */
+      --gs-1: #F9FAFB; --gs-2:#F4F4F6; --gs-3:#E5E6EB; --gs-4:#D3D5DA; --gs-5:#9EA3AE;
+      --gs-6:#6C727F; --gs-7:#4D5461; --gs-8:#394150; --gs-9:#212936; --gs-10:#161D21;
+    }
+
+    /* ========== Typography ========== */
+    .font-syne { font-family: 'Syne', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+    .font-rubik { font-family: 'Rubik', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+
+    /* Headline sizes exactly as requested */
+    .h1-syne { font-size: 72px; line-height: 0.98; }
+    .h2-syne { font-size: 64px; line-height: 1; }
+    .h3-syne { font-size: 56px; line-height: 1; }
+    .h4-rubik { font-size: 24px; }
+    .body-lg { font-size: 18px; }
+    .body-md { font-size: 16px; }
+
+    /* Responsive type scaling */
+    @media (max-width: 1024px) {
+      .h1-syne { font-size: 48px; }
+      .h2-syne { font-size: 40px; }
+      .h3-syne { font-size: 36px; }
+    }
+    @media (max-width: 640px) {
+      .h1-syne { font-size: 36px; }
+      .h2-syne { font-size: 32px; }
+      .h3-syne { font-size: 28px; }
+    }
+
+    /* ========== Page baseline ========== */
+    body { 
+      background: linear-gradient(180deg,#0b0b0c,#0f1112); 
+      color: var(--white); 
+      -webkit-font-smoothing:antialiased; 
+      -moz-osx-font-smoothing:grayscale; 
+      overflow-x: hidden;
+    }
+    main { transition: opacity .45s ease, transform .45s ease; }
+
+    /* ========== Overlay / Tap to Enter ========== */
+    #logo-animation {
+      position: fixed; 
+      inset: 0; 
+      display: grid; 
+      place-items: center; 
+      z-index: 80;
+      background: linear-gradient(180deg, rgba(2,6,7,0.98), rgba(10,10,10,0.95));
+      transition: opacity .5s ease, visibility .5s ease;
+    }
+    .logo-container {
+      width: 160px; 
+      height: 160px; 
+      border-radius: 22px;
+      display:grid; 
+      place-items:center;
+      background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      box-shadow: 0 12px 48px rgba(0,0,0,0.6), 0 6px 24px rgba(245,124,49,0.08);
+      border: 1px solid rgba(255,255,255,0.03);
+      cursor: pointer;
+      transform-origin:center;
+      animation: logoPulse 2200ms ease-in-out infinite;
+    }
+    .logo-shape img { 
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+    }
+    .tap-message { 
+      margin-top: 14px; 
+      color: rgba(255,255,255,0.9); 
+      font-family:Rubik; 
+      font-weight:500; 
+    }
+
+    @keyframes logoPulse { 
+      0%{ transform:scale(0.98); } 
+      50%{ transform:scale(1.06);} 
+      100%{ transform:scale(0.98);} 
+    }
+    #logo-animation.hidden { 
+      opacity:0; 
+      visibility:hidden; 
+      pointer-events:none; 
+    }
+
+    /* ========== Glass cards & accents ========== */
+    .glass {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.03);
+      backdrop-filter: blur(6px);
+      border-radius: 14px;
+    }
+
+    /* ========== Hero / Layout specifics ========== */
+    .hero-title { color: white; }
+    .hero-sub { color: var(--brand); }
+
+    /* small portrait */
+    .portrait { 
+      width: 140px; 
+      height: 140px; 
+      object-fit:cover; 
+      border-radius:12px; 
+      filter:grayscale(10%);
+      transition: all 0.3s ease;
+    }
+    .portrait:hover {
+      filter: grayscale(0%);
+      transform: scale(1.05);
+    }
+
+    /* ========== Projects grid ========== */
+    .projects-grid { 
+      display:grid; 
+      gap:20px; 
+      grid-template-columns: repeat(4, 1fr); 
+    }
+    @media (max-width:1024px) { 
+      .projects-grid{ 
+        grid-template-columns: repeat(2, 1fr);
+      } 
+    }
+    @media (max-width:640px) { 
+      .projects-grid{ 
+        grid-template-columns: 1fr; 
+      } 
+    }
+
+    .project-card { 
+      border-radius:14px; 
+      overflow:hidden; 
+      transition: all .3s ease; 
+      background: linear-gradient(180deg,#0b0b0b,#0e0e0e); 
+      border:1px solid rgba(255,255,255,0.03);
+      position: relative;
+    }
+    .project-card:hover { 
+      transform: translateY(-6px); 
+      box-shadow: 0 10px 30px rgba(245, 124, 49, 0.15);
+    }
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--brand), var(--brand-light));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .project-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .project-media { 
+      height: 200px; 
+      display:flex; 
+      align-items:end; 
+      justify-content:center; 
+      background:#0a0a0a;
+      overflow: hidden;
+    }
+    .project-media img { 
+      width:100%; 
+      height:100%; 
+      object-fit:cover;
+      transition: transform 0.5s ease;
+    }
+    .project-card:hover .project-media img {
+      transform: scale(1.05);
+    }
+
+    /* ========== Slider common ========== */
+    .slider { 
+      position:relative; 
+    }
+    .slider-track {
+      display:flex; 
+      gap:16px; 
+      overflow-x:auto; 
+      padding-bottom:8px; 
+      scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .slider-track::-webkit-scrollbar { 
+      display:none; 
+    }
+    .slider-item { 
+      min-width:280px; 
+      flex:0 0 auto; 
+      scroll-snap-align:center; 
+      border-radius:12px; 
+      padding:18px; 
+      background:linear-gradient(180deg,#0c0c0c,#111213); 
+      border:1px solid rgba(255,255,255,0.03);
+      transition: all 0.3s ease;
+    }
+    .slider-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    /* arrow buttons */
+    .slider-arrow { 
+      position:absolute; 
+      top:50%; 
+      transform:translateY(-50%); 
+      width:40px; 
+      height:40px; 
+      border-radius:999px; 
+      background:rgba(0,0,0,0.45); 
+      display:grid; 
+      place-items:center; 
+      cursor:pointer;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .slider-arrow:hover {
+      background: rgba(245, 124, 49, 0.2);
+      border-color: rgba(245, 124, 49, 0.3);
+    }
+    .slider-arrow.left { left:-8px; }
+    .slider-arrow.right { right:-8px; }
+
+    /* testimonial style */
+    .testimonial-card { 
+      min-width: 320px; 
+      padding:22px; 
+      font-family:Rubik; 
+      font-size:16px; 
+      color:var(--gs-3); 
+      display:flex; 
+      flex-direction:column; 
+      gap:10px; 
+    }
+    .testimonial-card cite { 
+      color:var(--gs-5); 
+      margin-top:6px; 
+      display:block; 
+      font-weight:500; 
+    }
+
+    /* blog card */
+    .blog-media { 
+      height:140px; 
+      width:100%; 
+      border-radius:10px; 
+      background: linear-gradient(90deg,#0a0a0a,#0e0e0e); 
+      margin-bottom:12px; 
+      display:flex; 
+      align-items:end; 
+      padding:12px;
+      position: relative;
+      overflow: hidden;
+    }
+    .blog-media::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 40%;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    }
+    .blog-meta h4 { 
+      font-family:Syne; 
+      font-size:18px; 
+    }
+
+    /* footer */
+    footer { 
+      margin-top:48px; 
+      padding:48px 0; 
+    }
+
+    /* small helpers */
+    .muted { color: var(--gs-5); }
+    .accent-dot { 
+      width:8px; 
+      height:8px; 
+      border-radius:999px; 
+      background:var(--brand); 
+      display:inline-block; 
+    }
+
+    /* ========== New improvements ========== */
+    
+    /* Navigation improvements */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(11, 11, 12, 0.8);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    /* Mobile menu */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(11, 11, 12, 0.95);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transform: translateY(-100%);
+      transition: transform 0.4s ease;
+    }
+    .mobile-menu.active {
+      transform: translateY(0);
+    }
+    .mobile-menu a {
+      display: block;
+      padding: 16px;
+      font-size: 24px;
+      font-family: 'Syne';
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .mobile-menu a:hover {
+      color: var(--brand);
+    }
+    .close-menu {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    
+    /* Progress bar */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--brand), var(--brand-light));
+      z-index: 100;
+      transition: width 0.2s ease;
+    }
+    
+    /* Back to top button */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--brand);
+      color: #111;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 40;
+      box-shadow: 0 4px 12px rgba(245, 124, 49, 0.3);
+    }
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    .back-to-top:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(245, 124, 49, 0.4);
+    }
+    
+    /* Section animations */
+    .section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Service cards hover effect */
+    .service-card {
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--brand), var(--brand-light));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .service-card:hover::before {
+      transform: scaleX(1);
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+    
+    /* Loading animation for images */
+    .loading {
+      background: linear-gradient(90deg, #0a0a0a 25%, #131313 50%, #0a0a0a 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+    }
+    @keyframes loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    
+    /* Improved focus styles for accessibility */
+    button:focus-visible,
+    a:focus-visible {
+      outline: 2px solid var(--brand);
+      outline-offset: 2px;
+    }
+    
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    /* ========== Blog Section Styles ========== */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 24px;
+    }
+    @media (max-width: 1024px) {
+      .blog-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 640px) {
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .blog-card {
+      background: linear-gradient(180deg, #0b0b0b, #0e0e0e);
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.03);
+      transition: all 0.3s ease;
+    }
+    .blog-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 30px rgba(245, 124, 49, 0.15);
+    }
+    
+    .blog-card-image {
+      height: 200px;
+      width: 100%;
+      object-fit: cover;
+    }
+    
+    .blog-card-content {
+      padding: 20px;
+    }
+    
+    .blog-card-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 12px;
+      font-size: 14px;
+      color: var(--gs-5);
+    }
+    
+    .blog-tag {
+      background: rgba(245, 124, 49, 0.1);
+      color: var(--brand);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    
+    .blog-read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      color: var(--brand);
+      font-weight: 500;
+      transition: gap 0.3s ease;
+    }
+    .blog-read-more:hover {
+      gap: 10px;
+    }
+    
+    /* Project buttons */
+    .project-buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    
+    .project-btn {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    
+    .github-btn {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white);
+    }
+    
+    .github-btn:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    
+    .demo-btn {
+      background: var(--brand);
+      color: #111;
+    }
+    
+    .demo-btn:hover {
+      background: var(--brand-light);
+    }
+    
+    /* Developer Notes */
+    .dev-notes {
+      background: rgba(245, 124, 49, 0.05);
+      border-left: 3px solid var(--brand);
+      padding: 16px;
+      margin: 24px 0;
+      border-radius: 0 8px 8px 0;
+    }
+    .dev-notes h4 {
+      color: var(--brand);
+      margin-bottom: 8px;
+      font-family: 'Rubik';
+    }
+
+    .loading-spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: var(--brand);
+      animation: spin 1s ease-in-out infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- ======== Progress Bar ======== -->
+  <div class="progress-bar" id="progress-bar"></div>
+
+  <!-- ======== Back to Top Button ======== -->
+  <div class="back-to-top" id="back-to-top" aria-label="Back to top">
+    ↑
+  </div>
+
+  <!-- ======== Mobile Menu ======== -->
+  <div class="mobile-menu" id="mobile-menu">
+    <button class="close-menu" id="close-menu" aria-label="Close menu">×</button>
+    <a href="#projects" class="font-syne">Projects</a>
+    <a href="#services" class="font-syne">Services</a>
+    <a href="#blog" class="font-syne">Blog</a>
+    <a href="#experience" class="font-syne">Experience</a>
+    <a href="#contact" class="font-syne">Contact</a>
+  </div>
+
+  <!-- ======== Tap to Enter Overlay ======== -->
+  <div id="logo-animation" role="dialog" aria-label="Intro overlay">
+    <div class="text-center">
+      <div id="logo-container" class="logo-container" tabindex="0" role="button" aria-pressed="false">
+        <div class="logo-shape">
+          <img src="images/algoinjectlogo.png" alt="Algo Inject Logo">
+        </div>
+      </div>
+      <div class="tap-message font-rubik body-md mt-4">Tap</div>
+    </div>
+  </div>
+
+  <!-- ======== Main Content ======== -->
+  <main id="main-content" class="max-w-[1200px] mx-auto px-6 py-8 opacity-0 translate-y-4">
+
+    <!-- NAV -->
+    <nav class="flex items-center justify-between py-6" aria-label="Main navigation">
+      <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3 glass p-2 rounded-lg">
+          <div class="w-10 h-10 rounded-sm bg-[linear-gradient(180deg,#ff9b6a,#f57c31)] flex items-center justify-center font-syne text-sm">
+            <img src="images/algoinjectlogo.png" alt="Algo Inject Logo" style="width: 24px; height: 24px; object-fit: contain;">
+          </div>
+          <div class="text-lg font-syne tracking-wide">ALGO INJECT</div>
+        </div>
+      </div>
+
+      <div class="hidden md:flex items-center gap-6 font-rubik text-[15px] muted">
+        <a href="#projects" class="hover:text-white transition">Projects</a>
+        <a href="#services" class="hover:text-white transition">Services</a>
+        <a href="#blog" class="hover:text-white transition">Blog</a>
+        <a href="#experience" class="hover:text-white transition">Experience</a>
+        <a href="#contact" class="hover:text-white transition">Contact</a>
+        <button class="px-4 py-2 rounded-full border border-[#2b2b2b] hover:border-[var(--brand)]">Contact</button>
+      </div>
+
+      <div class="md:hidden">
+        <button id="mobile-menu-btn" class="p-2 rounded bg-transparent border border-[#222]" aria-label="Open menu">☰</button>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center pt-6 section" id="hero">
+      <div>
+        <h1 class="font-syne h1-syne hero-title leading-tight">HI, WE ARE ALGO INJECT,<br><span class="hero-sub">BASED IN BANGLADESH</span></h1>
+        <p class="mt-6 font-rubik body-md muted max-w-lg">Algo Inject is where innovative ideas meet their technical execution. As a solo developer, I am passionate about injecting smart algorithms and clean code into the heart of your project. I specialize in crafting bespoke software, seamless user experiences, and scalable systems that don't just function; they perform. Let's build the intelligent digital solution your vision deserves.</p>
+
+        <div class="mt-8 flex flex-wrap items-center gap-4">
+          <a href="#projects" class="inline-flex items-center gap-3 px-5 py-3 rounded-full font-rubik hover:shadow-lg transition-all" style="background:var(--brand); color:#111;">Explore Works →</a>
+        </div>
+      </div>
+
+      <aside class="glass p-6 rounded-2xl flex items-center gap-6">
+        <img src="images/saiyedulabrarlarge.png" alt="Abrar" class="portrait">
+        <div>
+          <h3 class="font-syne h4-rubik">LET'S GET KNOW ABOUT ME CLOSER</h3>
+          <p class="mt-3 muted body-md">Abrar is a Bangladesh-based CS student specializing in AI and machine learning. His work spans web apps, full-stack systems and emerging AI solutions.</p>
+          <div class="mt-4"><a class="px-4 py-2 rounded-full hover:shadow-lg transition-all" style="background:var(--brand); color:#111;">About Me</a></div>
+        </div>
+      </aside>
+    </header>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="mt-14 section">
+      <h2 class="font-syne h3-syne">MY PROJECTS</h2>
+
+      <div class="projects-grid mt-6" id="projects-grid">
+        <div class="text-center py-12 col-span-4">
+          <div class="loading-spinner mx-auto mb-4"></div>
+          <p class="muted">Loading featured projects...</p>
+        </div>
+      </div>
+
+      <div class="mt-6">
+        <a href="projects.html" class="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-[#333] font-rubik hover:border-[var(--brand)] transition">See More Projects →</a>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="mt-16 section">
+      <h3 class="font-syne h3-syne">SERVICES I OFFER</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+        <div class="service-card glass p-6 rounded-lg"><h4 class="font-syne h4-rubik">Full-Stack Development</h4><p class="mt-2 muted">End-to-end web application development using modern technologies and best practices.</p></div>
+        <div class="service-card glass p-6 rounded-lg"><h4 class="font-syne h4-rubik">AI & Machine Learning</h4><p class="mt-2 muted">Custom AI solutions, machine learning models, and data-driven applications.</p></div>
+        <div class="service-card glass p-6 rounded-lg"><h4 class="font-syne h4-rubik">UI/UX Design</h4><p class="mt-2 muted">User-centered design approach creating intuitive and engaging user experiences.</p></div>
+        <div class="service-card glass p-6 rounded-lg"><h4 class="font-syne h4-rubik">System Architecture</h4><p class="mt-2 muted">Scalable system design and architecture for robust and maintainable applications.</p></div>
+      </div>
+    </section>
+
+    <!-- BLOG SECTION -->
+    <section id="blog" class="mt-16 section">
+      <h3 class="font-syne h3-syne">LATEST ARTICLES</h3>
+      
+      <div class="blog-grid mt-6" id="blog-grid">
+        <div class="text-center py-12 col-span-3">
+          <div class="loading-spinner mx-auto mb-4"></div>
+          <p class="muted">Loading latest articles...</p>
+        </div>
+      </div>
+      
+      <div class="mt-8 text-center">
+        <a href="blog.html" class="inline-flex items-center gap-3 px-5 py-3 rounded-full font-rubik border border-[#333] hover:border-[var(--brand)] transition">
+          View All Articles →
+        </a>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="mt-16 section">
+      <h3 class="font-syne h3-syne">EXPERIENCE</h3>
+      <div class="glass p-6 rounded-lg mt-6 grid grid-cols-1 md:grid-cols-3 gap-4 muted">
+        <div>Freelance Developer <div class="text-sm">Full-Stack Developer · Current</div></div>
+        <div>Open Source Contributor <div class="text-sm">AI Projects · 2023</div></div>
+        <div>University Projects <div class="text-sm">Research Assistant · 2022-2024</div></div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS (slider) -->
+    <section id="testimonials" class="mt-16 section">
+      <h3 class="font-syne h3-syne">TESTIMONIAL</h3>
+      
+      <div class="mt-6 relative">
+        <button class="slider-arrow left hidden md:grid" id="test-left" aria-label="Prev testimonial">‹</button>
+
+        <div class="slider-track" id="testimonial-slider" role="list">
+          <blockquote class="slider-item testimonial-card">
+            <div>"Algo Inject delivered exceptional work on our web application. The attention to detail and clean code made the project a success."</div>
+            <cite>— Project Client</cite>
+          </blockquote>
+
+          <blockquote class="slider-item testimonial-card">
+            <div>"The AI solution provided was exactly what we needed. Professional, efficient, and highly skilled."</div>
+            <cite>— Research Team</cite>
+          </blockquote>
+
+          <blockquote class="slider-item testimonial-card">
+            <div>"Working with Algo Inject was a great experience. The project was completed on time and exceeded expectations."</div>
+            <cite>— University Professor</cite>
+          </blockquote>
+        </div>
+
+        <button class="slider-arrow right hidden md:grid" id="test-right" aria-label="Next testimonial">›</button>
+      </div>
+    </section>
+
+    <!-- CONTACT / FOOTER -->
+    <footer id="contact" class="mt-20 section">
+      <div class="glass p-8 rounded-lg text-center">
+        <p class="font-syne text-2xl">Get in Touch With Us</p>
+        <a href="mailto:hello@algoinject.com" class="block font-syne text-3xl mt-4 hover:text-[var(--brand)] transition">HELLO@ALGOINJECT.COM</a>
+        <p class="mt-6 muted">Algo Inject — Bangladesh · +880-XXX-XXXXXX</p>
+        <div class="muted mt-4">© 2024. Algo Inject. All rights reserved.</div>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    // Main functionality
+    const overlay = document.getElementById('logo-animation');
+    const logoContainer = document.getElementById('logo-container');
+    const main = document.getElementById('main-content');
+    const progressBar = document.getElementById('progress-bar');
+    const backToTop = document.getElementById('back-to-top');
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeMenuBtn = document.getElementById('close-menu');
+
+    // Open site function
+    function openSite() {
+      if (!overlay) return;
+      overlay.classList.add('hidden');
+      main.style.opacity = '1';
+      main.style.transform = 'translateY(0)';
+    }
+
+    // Event listeners for overlay
+    logoContainer?.addEventListener('click', openSite);
+    logoContainer?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openSite(); }
+    });
+
+    // Scroll functionality
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      if (progressBar) {
+        progressBar.style.width = scrolled + '%';
+      }
+      
+      if (backToTop) {
+        if (window.scrollY > 500) {
+          backToTop.classList.add('visible');
+        } else {
+          backToTop.classList.remove('visible');
+        }
+      }
+      
+      const sections = document.querySelectorAll('.section');
+      sections.forEach(section => {
+        const sectionTop = section.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        if (sectionTop < windowHeight * 0.85) {
+          section.classList.add('visible');
+        }
+      });
+    });
+
+    // Back to top functionality
+    backToTop?.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Mobile menu functionality
+    mobileMenuBtn?.addEventListener('click', () => {
+      mobileMenu.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+    
+    closeMenuBtn?.addEventListener('click', () => {
+      mobileMenu.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+    
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Load featured projects from projects folder
+    document.addEventListener('DOMContentLoaded', function() {
+      // Load featured projects
+      fetch('projects.html')
+        .then(response => response.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          const projectCards = doc.querySelectorAll('.project-card');
+          
+          const projectsGrid = document.getElementById('projects-grid');
+          if (projectsGrid && projectCards.length > 0) {
+            projectsGrid.innerHTML = '';
+            projectCards.slice(0, 4).forEach(card => {
+              projectsGrid.appendChild(card.cloneNode(true));
+            });
+          }
+        })
+        .catch(error => {
+          console.error('Error loading projects:', error);
+          document.getElementById('projects-grid').innerHTML = '<p class="text-center muted">Error loading projects</p>';
+        });
+
+      // Load featured blog posts
+      fetch('blog.html')
+        .then(response => response.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          const blogCards = doc.querySelectorAll('.blog-card');
+          
+          const blogGrid = document.getElementById('blog-grid');
+          if (blogGrid && blogCards.length > 0) {
+            blogGrid.innerHTML = '';
+            blogCards.slice(0, 3).forEach(card => {
+              blogGrid.appendChild(card.cloneNode(true));
+            });
+          }
+        })
+        .catch(error => {
+          console.error('Error loading blog posts:', error);
+          document.getElementById('blog-grid').innerHTML = '<p class="text-center muted">Error loading articles</p>';
+        });
+    });
+
+    // Initialize section animations
+    window.dispatchEvent(new Event('scroll'));
+  </script>
+</body>
+</html>

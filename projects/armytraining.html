@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Army Training System - Project Details | Algo Inject</title>
+    
+    <!-- Tailwind Browser build (v4.1) -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========== Brand tokens ========== */
+        :root{
+            --brand: #f57c31;
+            --brand-light: #ff9b6a;
+            --bg-900: #1A1A1A;
+            --bg-800: #262A2C;
+            --muted: #696969;
+            --white: #FFFFFF;
+
+            /* Greyscale */
+            --gs-1: #F9FAFB; --gs-2:#F4F4F6; --gs-3:#E5E6EB; --gs-4:#D3D5DA; --gs-5:#9EA3AE;
+            --gs-6:#6C727F; --gs-7:#4D5461; --gs-8:#394150; --gs-9:#212936; --gs-10:#161D21;
+        }
+
+        /* ========== Typography ========== */
+        .font-syne { font-family: 'Syne', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+        .font-rubik { font-family: 'Rubik', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+
+        /* Headline sizes */
+        .h1-syne { font-size: 72px; line-height: 0.98; }
+        .h2-syne { font-size: 64px; line-height: 1; }
+        .h3-syne { font-size: 56px; line-height: 1; }
+        .h4-rubik { font-size: 24px; }
+        .body-lg { font-size: 18px; }
+        .body-md { font-size: 16px; }
+
+        /* Responsive type scaling */
+        @media (max-width: 1024px) {
+            .h1-syne { font-size: 48px; }
+            .h2-syne { font-size: 40px; }
+            .h3-syne { font-size: 36px; }
+        }
+        @media (max-width: 640px) {
+            .h1-syne { font-size: 36px; }
+            .h2-syne { font-size: 32px; }
+            .h3-syne { font-size: 28px; }
+        }
+
+        /* ========== Page baseline ========== */
+        body { 
+            background: linear-gradient(180deg,#0b0b0c,#0f1112); 
+            color: var(--white); 
+            -webkit-font-smoothing:antialiased; 
+            -moz-osx-font-smoothing:grayscale; 
+            overflow-x: hidden;
+        }
+
+        /* ========== Glass cards & accents ========== */
+        .glass {
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            border: 1px solid rgba(255,255,255,0.03);
+            backdrop-filter: blur(6px);
+            border-radius: 14px;
+        }
+
+        /* ========== Navigation ========== */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(10px);
+            background: rgba(11, 11, 12, 0.8);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* ========== Project specific styles ========== */
+        .project-hero {
+            background: linear-gradient(135deg, rgba(245,124,49,0.1), rgba(255,155,106,0.05));
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .tech-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            font-size: 14px;
+            font-family: 'Rubik';
+            margin: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            background: rgba(245,124,49,0.2);
+            border-color: rgba(245,124,49,0.3);
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-family: 'Rubik';
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-right: 12px;
+            margin-bottom: 12px;
+        }
+
+        .github-link {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--white);
+        }
+
+        .github-link:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .demo-link {
+            background: var(--brand);
+            color: #111;
+        }
+
+        .demo-link:hover {
+            background: var(--brand-light);
+        }
+
+        .feature-list li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 12px;
+            font-family: 'Rubik';
+            color: var(--gs-3);
+        }
+
+        .feature-list li:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--brand);
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            margin: 40px 0;
+        }
+
+        .muted { color: var(--gs-5); }
+
+        /* Back button */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 2rem;
+            padding: 12px 24px;
+            background: rgba(245, 124, 49, 0.1);
+            color: var(--brand);
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-family: 'Rubik';
+        }
+
+        .back-btn:hover {
+            background: rgba(245, 124, 49, 0.2);
+            gap: 12px;
+        }
+
+        .role-card {
+            background: rgba(255,255,255,0.02);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .role-card:hover {
+            background: rgba(255,255,255,0.03);
+            border-color: rgba(245,124,49,0.2);
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Navigation -->
+    <nav class="flex items-center justify-between py-6 px-6 max-w-[1200px] mx-auto">
+        <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3 glass p-2 rounded-lg">
+                <div class="w-10 h-10 rounded-sm bg-[linear-gradient(180deg,#ff9b6a,#f57c31)] flex items-center justify-center font-syne text-sm">
+                    <span style="color: #111; font-weight: bold">AI</span>
+                </div>
+                <div class="text-lg font-syne tracking-wide">ALGO INJECT</div>
+            </div>
+        </div>
+
+        <div class="hidden md:flex items-center gap-6 font-rubik text-[15px] muted">
+            <a href="../index.html#projects" class="hover:text-white transition">Projects</a>
+            <a href="../index.html#services" class="hover:text-white transition">Services</a>
+            <a href="../index.html#blog" class="hover:text-white transition">Blog</a>
+            <a href="../index.html#experience" class="hover:text-white transition">Experience</a>
+            <a href="../index.html#contact" class="hover:text-white transition">Contact</a>
+        </div>
+
+        <div class="md:hidden">
+            <button class="p-2 rounded bg-transparent border border-[#222]">☰</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-[1200px] mx-auto px-6 py-8">
+        <a href="../index.html" class="back-btn">← Back to Home</a>
+
+        <!-- Project Hero Section -->
+        <div class="project-hero">
+            <div class="flex flex-col md:flex-row gap-8 items-start">
+                <div class="flex-1">
+                    <h1 class="font-syne h2-syne mb-4">Army Training and Academic Monitoring System</h1>
+                    <p class="font-rubik body-lg muted mb-6">A comprehensive system for managing army training programs and academic progress tracking with role-based access control.</p>
+                    
+                    <div class="flex flex-wrap mb-6">
+                        <span class="tech-tag">Java</span>
+                        <span class="tech-tag">Spring Boot</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">REST API</span>
+                        <span class="tech-tag">JWT</span>
+                        <span class="tech-tag">Hibernate</span>
+                        <span class="tech-tag">Maven</span>
+                    </div>
+                    
+                    <div class="flex flex-wrap">
+                        <a href="https://github.com/AlgoAbrar/Army_Training_and_Academic_Monitoring_System" class="project-link github-link" target="_blank">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                            </svg>
+                            GitHub Repository
+                        </a>
+                        <a href="https://army-training-demo.netlify.app" class="project-link demo-link" target="_blank">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                <path d="M10.5 8a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
+                                <path fill-rule="evenodd" d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 100-7 3.5 3.5 0 000 7z" clip-rule="evenodd"/>
+                            </svg>
+                            Live Demo
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/3">
+                    <div class="glass p-4 rounded-xl">
+                        <img src="../images/army-training.jpg" alt="Army Training System" class="w-full h-auto rounded-lg">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Details -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Main Content -->
+            <div class="lg:col-span-2">
+                <div class="glass p-8 rounded-2xl mb-8">
+                    <h2 class="font-syne text-3xl mb-6">Project Overview</h2>
+                    <p class="font-rubik body-lg muted mb-6">A sophisticated web application designed to manage military training programs and monitor academic progress of army personnel. The system provides different interfaces for administrators, trainers, and trainees with comprehensive role-based access control.</p>
+                    
+                    <div class="section-divider"></div>
+                    
+                    <h3 class="font-syne text-2xl mb-4">Key Features</h3>
+                    <ul class="feature-list">
+                        <li>Advanced role-based access control (Admin, Trainer, Trainee)</li>
+                        <li>Comprehensive training program management and scheduling</li>
+                        <li>Real-time academic progress tracking and reporting</li>
+                        <li>Performance analytics with interactive dashboards</li>
+                        <li>Secure document management system with version control</li>
+                        <li>Real-time notifications and alert system</li>
+                        <li>Military-grade data encryption and security protocols</li>
+                        <li>Attendance tracking and reporting</li>
+                        <li>Grade management and transcript generation</li>
+                        <li>Multi-level approval workflows</li>
+                    </ul>
+                </div>
+
+                <div class="glass p-8 rounded-2xl mb-8">
+                    <h3 class="font-syne text-2xl mb-6">Role-Based Access Control</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="role-card">
+                            <h4 class="font-rubik font-semibold text-lg mb-3" style="color: var(--brand);">Administrator</h4>
+                            <ul class="feature-list text-sm">
+                                <li>User management and role assignment</li>
+                                <li>System configuration</li>
+                                <li>Overall dashboard access</li>
+                                <li>Report generation</li>
+                            </ul>
+                        </div>
+                        <div class="role-card">
+                            <h4 class="font-rubik font-semibold text-lg mb-3" style="color: var(--brand);">Trainer</h4>
+                            <ul class="feature-list text-sm">
+                                <li>Training program creation</li>
+                                <li>Progress monitoring</li>
+                                <li>Grade assignment</li>
+                                <li>Performance analysis</li>
+                            </ul>
+                        </div>
+                        <div class="role-card">
+                            <h4 class="font-rubik font-semibold text-lg mb-3" style="color: var(--brand);">Trainee</h4>
+                            <ul class="feature-list text-sm">
+                                <li>Course enrollment</li>
+                                <li>Progress tracking</li>
+                                <li>Document access</li>
+                                <li>Performance review</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass p-8 rounded-2xl">
+                    <h3 class="font-syne text-2xl mb-4">Technical Implementation</h3>
+                    <p class="font-rubik body-lg muted mb-6">The system was built with enterprise-grade architecture focusing on security, scalability, and performance. Backend developed with Java Spring Boot providing robust RESTful APIs, frontend with React for dynamic user interfaces, and MySQL for reliable data management.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-rubik font-semibold text-lg mb-3" style="color: var(--brand);">Backend Technologies</h4>
+                            <ul class="feature-list">
+                                <li>Java Spring Boot framework</li>
+                                <li>Spring Security with JWT authentication</li>
+                                <li>Hibernate ORM for database operations</li>
+                                <li>MySQL with optimized queries</li>
+                                <li>RESTful API design</li>
+                                <li>Maven for dependency management</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-rubik font-semibold text-lg mb-3" style="color: var(--brand);">Frontend Technologies</h4>
+                            <ul class="feature-list">
+                                <li>React with functional components</li>
+                                <li>Context API for state management</li>
+                                <li>Axios for API communication</li>
+                                <li>Material-UI components</li>
+                                <li>Chart.js for analytics</li>
+                                <li>Responsive design principles</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="lg:col-span-1">
+                <div class="glass p-6 rounded-2xl mb-6">
+                    <h3 class="font-syne text-xl mb-4">Project Info</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="text-sm muted mb-1">Status</div>
+                            <div class="font-rubik font-medium">Completed</div>
+                        </div>
+                        <div>
+                            <div class="text-sm muted mb-1">Timeline</div>
+                            <div class="font-rubik font-medium">4 months</div>
+                        </div>
+                        <div>
+                            <div class="text-sm muted mb-1">Team Size</div>
+                            <div class="font-rubik font-medium">Solo Project</div>
+                        </div>
+                        <div>
+                            <div class="text-sm muted mb-1">Category</div>
+                            <div class="font-rubik font-medium">Enterprise Web Application</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass p-6 rounded-2xl mb-6">
+                    <h3 class="font-syne text-xl mb-4">Security Features</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-[var(--brand)]"></div>
+                            <span class="text-sm">JWT Token Authentication</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-[var(--brand)]"></div>
+                            <span class="text-sm">Role-Based Access Control</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-[var(--brand)]"></div>
+                            <span class="text-sm">Data Encryption</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-[var(--brand)]"></div>
+                            <span class="text-sm">Input Validation</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-[var(--brand)]"></div>
+                            <span class="text-sm">SQL Injection Prevention</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass p-6 rounded-2xl">
+                    <h3 class="font-syne text-xl mb-4">Database Schema</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between">
+                            <span class="muted">Users Table</span>
+                            <span>15 fields</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="muted">Training Programs</span>
+                            <span>12 fields</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="muted">Progress Tracking</span>
+                            <span>10 fields</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="muted">Documents</span>
+                            <span>8 fields</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="muted">Roles & Permissions</span>
+                            <span>6 tables</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-20 py-12 border-t border-[#222]">
+        <div class="max-w-[1200px] mx-auto px-6 text-center">
+            <p class="font-syne text-2xl mb-4">Get in Touch With Us</p>
+            <a href="mailto:hello@algoinject.com" class="block font-syne text-3xl mb-4 hover:text-[var(--brand)] transition">HELLO@ALGOINJECT.COM</a>
+            <p class="muted">Algo Inject — Bangladesh · +880-XXX-XXXXXX</p>
+            <div class="muted mt-4">© 2024. Algo Inject. All rights reserved.</div>
+        </div>
+    </footer>
+</body>
+</html>
